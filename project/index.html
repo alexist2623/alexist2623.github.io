@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeonghyun Park - Profile</title>
-    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="./project.css">
 </head>
 <body>
     <!-- Fixed navigation bar -->
@@ -19,78 +19,82 @@
         </div>
     </nav>
 
-    <header>
-        <div class="container">
-            <h1>Projects</h1>
-        </div>
-    </header>
-
     <section class="projects">
         <div class="container">
-            <h2>RTL/Firmware Projects</h2>
-            <div class="project">
-                <h3><a href="https://example.com/LowLatENCy" target="_blank">LowLatENCy (LOLENC) based on RFSoC</a></h3>
-                <p>Full arbitrary waveform generator which is C programmable on field with TCP</p>
-            </div>
+            <h1>RTL/Firmware Projects</h1>
+            <section id="lolenc">
+                <div class="project">
+                    <h2><a href="https://example.com/LowLatENCy" target="_blank">LowLatENCy (LOLENC) based on RFSoC</a></h2>
+                    <p>Full arbitrary waveform generator which is C programmable on field with TCP </p>
+                </div>
+            </section>
         
-            <div class="project">
-                <h3><a href="https://example.com/EntanglementExperiment" target="_blank">Remote Ion Entanglement Experiment</a></h3>
-                <p>Remote ion entanglement experiment</p>
-            </div>
+            <section id="EntanglementExperiment">
+                <div class="project">
+                    <h2><a href="https://example.com/EntanglementExperiment" target="_blank">Remote Ion Entanglement Experiment</a></h2>
+                    <p>Remote ion entanglement experiment</p>
+                </div>
+            </section>
         
-            <div class="project">
-                <h3><a href="https://example.com/AD9910Control" target="_blank">AD9910 Control Module</a></h3>
-                <p>The AD9910 control module handles signal generation for quantum experiments with precision timing.</p>
-            </div>
+            <section id="AD9910Control">
+                <div class="project">
+                    <h2><a href="https://example.com/AD9910Control" target="_blank">AD9910 Control Module</a></h2>
+                    <p>The AD9910 control module handles signal generation for quantum experiments with precision timing.</p>
+                </div>
+            </section>
             
-            <div class="project">
-                <h3><a href="https://example.com/ImageProcessingFPGA" target="_blank">Image Processing in FPGA for Photonic Machine Learning</a></h3>
-                <p>Image display system with DVI/HDMI for SLM.</p>
-            </div>
+            <section id="ImageProcessingFPGA">
+                <div class="project">
+                    <h2><a href="https://example.com/ImageProcessingFPGA" target="_blank">Image Processing in FPGA for Photonic Machine Learning</a></h2>
+                    <p>Image display system with DVI/HDMI for SLM.</p>
+                </div>
+            </section>
         
-            <h2>Python Projects</h2>
-            <div class="project">
-                <h3><a href="https://example.com/VivadoManager" target="_blank">Vivado Project Manager</a></h3>
-                <p>Generate custom IP and connect block diagram automatically based on json meta file</p>
-            </div>
+            <h1>Python Projects</h1>
+            <section id="VivadoManager">
+                <div class="project">
+                    <h2><a href="https://example.com/VivadoManager" target="_blank">Vivado Project Manager</a></h2>
+                    <p>Generate custom IP and connect block diagram automatically based on json meta file</p>
+                </div>
+            </section>
             
-            <div class="project">
-                <h3><a href="https://example.com/LowLatENCy" target="_blank">LOLENC Master Server</a></h3>
-                <p>Lolenc control python server</p>
-            </div>
+            <section id="LolencServer">
+                <div class="project">
+                    <h2><a href="https://example.com/LolencServer" target="_blank">LOLENC Master Server</a></h2>
+                    <p>Lolenc control python server</p>
+                </div>
+            </section>
         
-            <h2>PCB Projects</h2>
-            <div class="project">
-                <h3><a href="https://example.com/FMCtoEEM" target="_blank">FMC to EEM PCB board</a></h3>
-                <p>Daughter board which converts FMC(VITA57.1/4) to EEM. Differential signal with 1Gbps.</p>
-            </div>
+            <h1>PCB Projects</h1>
+            <section id="FMCtoEEM">
+                <div class="project">
+                    <h2><a href="https://example.com/FMCtoEEM" target="_blank">FMC to EEM PCB board</a></h2>
+                    <p>Daughter board which converts FMC(VITA57.1/4) to EEM. Differential signal with 1Gbps.</p>
+                </div>
+            </section>
         
-            <div class="project">
-                <h3><a href="https://example.com/EEMtoTTL" target="_blank">EEM to TTL PCB board</a></h3>
-                <p>Daughter board converting LVTTL-LVDS signal. 50-Ohm termination is configurable.</p>
-            </div>
+            <section id="EEMtoTTL">
+                <div class="project">
+                    <h2><a href="https://example.com/EEMtoTTL" target="_blank">EEM to TTL PCB board</a></h2>
+                    <p>Daughter board converting LVTTL-LVDS signal. 50-Ohm termination is configurable.</p>
+                </div>
+            </section>
         
-            <div class="project">
-                <h3><a href="https://example.com/PMODtoSMA" target="_blank">PMOD to SMA PCB board</a></h3>
-                <p>50-Ohm impedance, and delay matched PCB board used in ion entanglement experiment.</p>
-            </div>
+            <section id="PMODtoSMA">
+                <div class="project">
+                    <h2><a href="https://example.com/PMODtoSMA" target="_blank">PMOD to SMA PCB board</a></h2>
+                    <p>50-Ohm impedance, and delay matched PCB board used in ion entanglement experiment.</p>
+                </div>
+            </section>
         
-            <div class="project">
-                <h3><a href="https://example.com/PMODtoAD9910" target="_blank">PMOD to AD9910 PCB board</a></h3>
-                <p>PCB connecting ArtyS7 FPGA to AD9910 DDS board</p>
-            </div>
+            <section id="PMODtoAD9910">
+                <div class="project">
+                    <h2><a href="https://example.com/PMODtoAD9910" target="_blank">PMOD to AD9910 PCB board</a></h2>
+                    <p>PCB connecting ArtyS7 FPGA to AD9910 DDS board</p>
+                </div>
+            </section>
         </div>
     </section>
-<!--
-    <section class="research-interests">
-        <div class="container">
-            <h2>Research Interests</h2>
-            <ul>
-                <li>RFSoC</li>
-            </ul>
-        </div>
-    </section>
--->    
 
     <footer>
         <div class="container">
