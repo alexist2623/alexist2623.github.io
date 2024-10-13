@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #ffffff;
+    color: #000000;
+    padding-top: 60px; /* Adjust based on nav height */
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px; 
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+header {
+    background: #ffffff;
+    color: #000000;
+    padding: 20px 0;
+    text-align: left;
+    max-width: 1200px; /* 최대 너비 */
+    margin: 0 auto;
+}
+
+header h1 {
+    margin-bottom: 10px;
+    font-size: 2.5rem;
+}
+
+.profile {
+    background: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1000px; 
+    margin: 0 auto;
+    box-sizing: border-box; 
+}
+
+.profile-image {
+    margin-left: 10px;
+}
+
+.profile-image img {
+    flex: 0 0 250px;
+    width: 250px; /* Adjust the width of the image */
+    height: auto;
+}
+
+.profile .bio {
+    flex: 1;
+    padding-right: 20px;
+    box-sizing: border-box; /* 박스 모델을 크기에 맞게 조정 */
+}
+
+.research-interests {
+    background: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    max-width: 1200px; 
+    margin: 0 auto;
+}
+
+.research-interests h2 {
+    margin-bottom: 10px;
+}
+
+.projects {
+    background: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    max-width: 1200px; 
+    margin: 0 auto;
+}
+
+.projects h2 {
+    margin-bottom: 10px;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+ul {
+    list-style: none;
+}
+
+ul li {
+    padding: 10px 0;
+}
+
+/*===================================================================================================
+ * Button styles
+ ====================================================================================================*/
+
+.button {
+    background-color: #ffffff; 
+    color: #000000;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.button:hover {
+    background-color: #ffffff;
+}
+
+/* Fixed navigation bar styles */
+.fixed-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    z-index: 1000; /* Ensures the nav stays on top */
+    border-bottom: 2px solid #ccc; /* Add a bottom border */
+}
+
+.fixed-nav .nav-left, .fixed-nav .nav-right {
+    display: flex;
+}
+
+.fixed-nav .button {
+    background-color: #ffffff; /* Button background */
+    color: #000000; /* Button text color */
+    padding: 10px 20px; /* Padding inside buttons */
+    text-decoration: none; /* Remove underline from links */
+    border-radius: 5px; /* Rounded corners */
+    margin: 0 10px; /* Space between buttons */
+}
+
+.fixed-nav .button:hover {
+    color : #5F5F5F;
+    background-color: #ffffff; /* Change color on hover */
+}
+
+.fixed-nav .button.active {
+    color: #e63946; /* Text color for active page (e.g., red) */
+}
+
