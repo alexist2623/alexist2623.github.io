@@ -37,6 +37,24 @@ header h1 {
     font-size: 2.5rem;
 }
 
+header h3 a {
+    color: #000000;
+    text-decoration: none;
+}
+
+header h3 a:hover {
+    text-decoration: none;
+    color: #5F5F5F !important;
+}
+
+header h3 a:visited {
+    color: #000000;
+}
+
+header h3 a:focus {
+    outline: none;
+}
+
 .profile {
     background: #fff;
     padding: 20px;
@@ -101,7 +119,7 @@ header h1 {
 
 .project h3 a:hover {
     text-decoration: none;
-    color: #5F5F5F;
+    color: #5F5F5F !important;
 }
 
 .project h3 a:visited {
@@ -110,10 +128,6 @@ header h1 {
 
 .project h3 a:focus {
     outline: none;
-}
-
-.project h3 a:active {
-    color: #e63946;
 }
 
 .project p{

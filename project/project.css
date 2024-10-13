@@ -127,6 +127,19 @@ header h1 {
     color : #000000;
 }
 
+.project img {
+    display: block;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project .image-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
 footer {
     background: #333;
     color: #fff;
