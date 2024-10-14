@@ -24,9 +24,11 @@
             <h1>RTL/Firmware Project</h1>
             <section id="lolenc">
                 <div class="project">
-                    <h2>LowLatENCy (LOLENC) Quantum Control System based on RFSoC</h2>
+                    <h2>LowLatENCy (LOLENC) Quantum Computer Control System based on RFSoC</h2>
                     <img src="./lolenc/FullDiagram2.png" width="600px" alt="LOLENC Block Diagram Image">
                     <p>Full arbitrary waveform generator which is C programmable on field with TCP </p>
+                    <img src="./lolenc/ProgrammingProcedure.png" width="500px" alt="LOLENC Block Diagram Image">
+                    <p>Programming Procedure</p>
                     <div class="image-container">
                         <img src="./lolenc/MACPipeline.png" width="300px" alt="LOLENC Block Diagram Image">
                         <img src="./lolenc/DDS.png" width="400px" alt="LOLENC Block Diagram Image">
@@ -36,8 +38,11 @@
                         <img src="./lolenc/InterruptController.png" width="300px" alt="LOLENC Block Diagram Image">
                         <img src="./lolenc/CommandTable.png" width="400px" alt="LOLENC Block Diagram Image">
                     </div>
+                    <p>AXI Deadlock prevention structure</p>
                     <img src="./lolenc/MemoryController.png" width="500px" alt="LOLENC Block Diagram Image">
                     <p>Memory Controller</p>
+                    <img src="./lolenc/RabiData.png" width="500px" alt="LOLENC Block Diagram Image">
+                    <p>Rabi Data</p>
                 </div>
             </section>
         
@@ -58,7 +63,12 @@
             <section id="ImageProcessingFPGA">
                 <div class="project">
                     <h2>Image Processing in FPGA for Photonic Machine Learning</h2>
+                    <img src="./zcu104image/system.png" width="700px" alt="Vivado Project Manager Image">
                     <p>Image display system with DVI/HDMI for SLM.</p>
+                    <img src="./zcu104image/ZCU104Display.png" width="700px" alt="Vivado Project Manager Image">
+                    <p>ZCU104 Display System</p>
+                    <img src="./zcu104image/ZCU104Interrupt.png" width="700px" alt="Vivado Project Manager Image">
+                    <p>ZCU104 Interrupt System</p>
                 </div>
             </section>
         
@@ -77,11 +87,20 @@
                     <p>Lolenc control python server</p>
                 </div>
             </section>
+
+            <section id="PulseShaping">
+                <div class="project">
+                    <h2>Ion Trap Two Qubit Gate Pulse Shaping Optimization</h2>
+                    <img src="./pulse_shaping/trajectory.png" width="500px" alt="PulseShaping">
+                    <p>Pulse shaping optimization through ADAM algorithm and analysis between experiment data and calculated data</p>
+                </div>
+            </section>
         
             <h1>PCB Project</h1>
             <section id="FMCtoEEM">
                 <div class="project">
                     <h2>FMC to EEM PCB board</h2>
+                    <img src="./fmc2eem/FMC2EEM.png" width="500px" alt="Vivado Project Manager Image">
                     <p>Daughter board which converts FMC(VITA57.1/4) to EEM. Differential signal with 1Gbps.</p>
                 </div>
             </section>
@@ -89,6 +108,7 @@
             <section id="EEMtoTTL">
                 <div class="project">
                     <h2>EEM to TTL PCB board</h2>
+                    <img src="./eem2ttl/EEM2TTL.png" width="500px" alt="Vivado Project Manager Image">
                     <p>Daughter board converting LVTTL-LVDS signal. 50-Ohm termination is configurable.</p>
                 </div>
             </section>
@@ -96,6 +116,7 @@
             <section id="PMODtoSMA">
                 <div class="project">
                     <h2>PMOD to SMA PCB board</h2>
+                    <img src="./pmod2sma/PMOD2SMA.png" width="500px" alt="Vivado Project Manager Image">
                     <p>50-Ohm impedance, and delay matched PCB board used in ion entanglement experiment.</p>
                 </div>
             </section>
@@ -103,7 +124,24 @@
             <section id="PMODtoAD9910">
                 <div class="project">
                     <h2>PMOD to AD9910 PCB board</h2>
+                    <img src="./pmod2ad9910/PMOD2AD9910.png" width="500px" alt="Vivado Project Manager Image">
                     <p>PCB connecting ArtyS7 FPGA to AD9910 DDS board</p>
+                </div>
+            </section>
+            
+            <section id="BALUN">
+                <div class="project">
+                    <h2>Balun PCB board</h2>
+                    <img src="./balun/Balun.png" width="300px" alt="Vivado Project Manager Image">
+                    <p>
+                        PCB converting differential anaglog signal to single ended analog signal which is 100-Ohm, 
+                        50-Ohm impedance matched respectively.
+                    </p>
+                    <img src="./balun/SIWaveSim.png" width="500px" alt="Vivado Project Manager Image">
+                    <p>To verify whether resistor termination is unnecessary 
+                        on the balun input port, we extracted the IBIS model of the balun component and the IPC2581 
+                        file from the OrCAD PCB design and confirmed this through simulations using ANSYS SIwave.
+                    </p>
                 </div>
             </section>
         </div>

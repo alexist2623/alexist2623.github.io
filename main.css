@@ -108,13 +108,12 @@ header h3 a:focus {
 
 .projects h2 {
     margin-top: 50px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .project h3 a {
     color: #000000;
     text-decoration: none;
-    margin-left : 10px;
 }
 
 .project h3 a:hover {
@@ -132,9 +131,33 @@ header h3 a:focus {
 
 .project p{
     margin-top: 5px;
-    margin-bottom: 10px;
-    margin-left : 15px;
+    margin-bottom: 50px;
+    margin-left : 5px;
     color : #000000;
+}
+
+.project .content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-left: 5px !important;
+}
+
+.project .text {
+    flex: 6; 
+    margin-right: 0px !important;
+}
+
+.project .image {
+    flex: 4;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.project .image img {
+    max-width: 100%;
+    height: auto;
+    margin: 0;
 }
 
 footer {
