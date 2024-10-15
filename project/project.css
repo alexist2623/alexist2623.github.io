@@ -127,6 +127,12 @@ header h1 {
     color : #000000;
 }
 
+.project .bullet::before {
+    content: "• ";
+    font-size: 1.2em;
+    color: black;
+}
+
 .project img {
     display: block;
     height: auto;

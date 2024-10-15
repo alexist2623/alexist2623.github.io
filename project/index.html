@@ -26,37 +26,77 @@
                 <div class="project">
                     <h2>LowLatENCy (LOLENC) Quantum Computer Control System based on RFSoC</h2>
                     <img src="./lolenc/FullDiagram2.png" width="600px" alt="LOLENC Block Diagram Image">
-                    <p>Full arbitrary waveform generator which is C programmable on field with TCP </p>
+                    <p class="bullet">
+                        Full arbitrary waveform generator which is C programmable on field with TCP. 
+                        Lolenc system has 3 cores: TCP Server, ELF Runner, and Moninj respectively.
+                        All cores are running in baremetal.
+                        TCP Server receives the command from server with LWIP server.
+                        TCP Server makes interrupt to ELF Runner, and ELF Runner loads ELF file from DRAM and run it or 
+                        forcibly stop running ELF.
+                        Load, and stop ELF code is written in ARMv8 assembly.
+                        Moninj monitors TTL signal and receives override command from TCP Server, and send it to TTL modules.
+                    </p>
                     <img src="./lolenc/ProgrammingProcedure.png" width="500px" alt="LOLENC Block Diagram Image">
-                    <p>Programming Procedure</p>
+                    <p class="bullet">
+                        User select CPP file through IQUIP GUI, and make schedule to run it on the master server. 
+                        Then, master find highest priority of schedule, and compile the CPP width GNU compiler.
+                        Linker script which is written to run on ELF Runner links all user CPP object file and bsp object file.
+                        Then, master send ELF file to ELF Runner through TCP Server.
+                    </p>
                     <div class="image-container">
                         <img src="./lolenc/MACPipeline.png" width="300px" alt="LOLENC Block Diagram Image">
                         <img src="./lolenc/DDS.png" width="400px" alt="LOLENC Block Diagram Image">
                     </div>
-                    <p>DDS Strcuture</p>
+                    <p class="bullet">
+                        User can select RF source: DDS or AWG.
+                        DDS generates sin wave with given frequency, amplitude, and phase parameters.
+                        Changing frequency does change only accumulating phase value, which changes phase continuously.
+                        However, some experiments require phase change in stepwise, and to meet timing constraints, 
+                        2 pipelined MAC which utilizes Vedic algorithm is used.
+                    </p>
+
+                    <img src="./lolenc/MemoryController.png" width="500px" alt="LOLENC Block Diagram Image">
+                    <p class="bullet">
+                        Due to the limitations of FPGA resources, synthesizing multiple DDS modules to create multi-tone signals 
+                        is constrained. To overcome this, we implemented AWG functionality. Unlike superconducting qubits, 
+                        ion trap-based quantum computers require longer pulse durations. To address this, we developed a 
+                        module that controls data transactions between DRAM and DAC.
+                    </p>
+
                     <div class="image-container">
                         <img src="./lolenc/InterruptController.png" width="300px" alt="LOLENC Block Diagram Image">
                         <img src="./lolenc/CommandTable.png" width="400px" alt="LOLENC Block Diagram Image">
                     </div>
-                    <p>AXI Deadlock prevention structure</p>
-                    <img src="./lolenc/MemoryController.png" width="500px" alt="LOLENC Block Diagram Image">
-                    <p>Memory Controller</p>
+                    <p class="bullet">
+                        Typically, register-based AXI accesses return a response immediately after a write operation. 
+                        However, quantum computer controllers may not do so in order to prevent overflow of the module's FIFO. 
+                        This behavior can lead to AXI deadlocks, and we have developed a method to prevent this by combining module 
+                        and firmware solutions
+                    </p>
+
                     <img src="./lolenc/RabiData.png" width="500px" alt="LOLENC Block Diagram Image">
-                    <p>Rabi Data</p>
+                    <p class="bullet">
+                        The implemented system was utilized in real experiments and produced various experimental results, 
+                        including Rabi oscillations.
+                    </p>
                 </div>
             </section>
         
             <section id="EntanglementExperiment">
                 <div class="project">
                     <h2>Remote Ion Entanglement Experiment</h2>
-                    <p>Remote ion entanglement experiment</p>
+                    <p class="bullet">
+                        Remote ion entanglement experiment
+                    </p>
                 </div>
             </section>
         
             <section id="AD9910Control">
                 <div class="project">
                     <h2>AD9910 Control Module</h2>
-                    <p>The AD9910 control module handles signal generation for quantum experiments with precision timing.</p>
+                    <p class="bullet">
+                        The AD9910 control module handles signal generation for quantum experiments with precision timing.
+                    </p>
                 </div>
             </section>
             
@@ -64,11 +104,17 @@
                 <div class="project">
                     <h2>Image Processing in FPGA for Photonic Machine Learning</h2>
                     <img src="./zcu104image/system.png" width="700px" alt="Vivado Project Manager Image">
-                    <p>Image display system with DVI/HDMI for SLM.</p>
+                    <p class="bullet">
+                        Image display system with DVI/HDMI for SLM.
+                    </p>
                     <img src="./zcu104image/ZCU104Display.png" width="700px" alt="Vivado Project Manager Image">
-                    <p>ZCU104 Display System</p>
+                    <p class="bullet">
+                        ZCU104 Display System
+                    </p>
                     <img src="./zcu104image/ZCU104Interrupt.png" width="700px" alt="Vivado Project Manager Image">
-                    <p>ZCU104 Interrupt System</p>
+                    <p class="bullet">
+                        ZCU104 Interrupt System
+                    </p>
                 </div>
             </section>
         
@@ -77,14 +123,18 @@
                 <div class="project">
                     <h2>Vivado Project Manager</h2>
                     <img src="./vivado_project_manager/VivadoProjectManager.png" width="700px" alt="Vivado Project Manager Image">
-                    <p>Generate custom IP and connect block diagram automatically based on json meta file</p>
+                    <p class="bullet">
+                        Generate custom IP and connect block diagram automatically based on json meta file
+                    </p>
                 </div>
             </section>
             
             <section id="LolencServer">
                 <div class="project">
                     <h2>LOLENC Master Server</h2>
-                    <p>Lolenc control python server</p>
+                    <p class="bullet">
+                        Lolenc control python server
+                    </p>
                 </div>
             </section>
 
@@ -92,7 +142,9 @@
                 <div class="project">
                     <h2>Ion Trap Two Qubit Gate Pulse Shaping Optimization</h2>
                     <img src="./pulse_shaping/trajectory.png" width="500px" alt="PulseShaping">
-                    <p>Pulse shaping optimization through ADAM algorithm and analysis between experiment data and calculated data</p>
+                    <p class="bullet">
+                        Pulse shaping optimization through ADAM algorithm and analysis between experiment data and calculated data
+                    </p>
                 </div>
             </section>
         
@@ -101,7 +153,7 @@
                 <div class="project">
                     <h2>FMC to EEM PCB board</h2>
                     <img src="./fmc2eem/FMC2EEM.png" width="500px" alt="Vivado Project Manager Image">
-                    <p>Daughter board which converts FMC(VITA57.1/4) to EEM. Differential signal with 1Gbps.</p>
+                    <p class="bullet">Daughter board which converts FMC(VITA57.1/4) to EEM. Differential signal with 1Gbps.</p>
                 </div>
             </section>
         
@@ -109,7 +161,7 @@
                 <div class="project">
                     <h2>EEM to TTL PCB board</h2>
                     <img src="./eem2ttl/EEM2TTL.png" width="500px" alt="Vivado Project Manager Image">
-                    <p>Daughter board converting LVTTL-LVDS signal. 50-Ohm termination is configurable.</p>
+                    <p class="bullet">Daughter board converting LVTTL-LVDS signal. 50-Ohm termination is configurable.</p>
                 </div>
             </section>
         
@@ -117,7 +169,7 @@
                 <div class="project">
                     <h2>PMOD to SMA PCB board</h2>
                     <img src="./pmod2sma/PMOD2SMA.png" width="500px" alt="Vivado Project Manager Image">
-                    <p>50-Ohm impedance, and delay matched PCB board used in ion entanglement experiment.</p>
+                    <p class="bullet">50-Ohm impedance, and delay matched PCB board used in ion entanglement experiment.</p>
                 </div>
             </section>
         
@@ -125,7 +177,7 @@
                 <div class="project">
                     <h2>PMOD to AD9910 PCB board</h2>
                     <img src="./pmod2ad9910/PMOD2AD9910.png" width="500px" alt="Vivado Project Manager Image">
-                    <p>PCB connecting ArtyS7 FPGA to AD9910 DDS board</p>
+                    <p class="bullet">PCB connecting ArtyS7 FPGA to AD9910 DDS board</p>
                 </div>
             </section>
             
@@ -133,12 +185,13 @@
                 <div class="project">
                     <h2>Balun PCB board</h2>
                     <img src="./balun/Balun.png" width="300px" alt="Vivado Project Manager Image">
-                    <p>
+                    <p class="bullet">
                         PCB converting differential anaglog signal to single ended analog signal which is 100-Ohm, 
                         50-Ohm impedance matched respectively.
                     </p>
                     <img src="./balun/SIWaveSim.png" width="500px" alt="Vivado Project Manager Image">
-                    <p>To verify whether resistor termination is unnecessary 
+                    <p class="bullet">
+                        To verify whether resistor termination is unnecessary 
                         on the balun input port, we extracted the IBIS model of the balun component and the IPC2581 
                         file from the OrCAD PCB design and confirmed this through simulations using ANSYS SIwave.
                     </p>
@@ -150,6 +203,7 @@
     <footer>
         <div class="container">
             <p>&copy; 2024 Jeonghyun Park</p>
+            <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Falexist2623.github.io&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a>
         </div>
     </footer>
 
