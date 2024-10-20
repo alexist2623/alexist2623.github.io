@@ -74,6 +74,19 @@
                         and firmware solutions
                     </p>
 
+                    <div class="image-container">
+                        <img src="./lolenc/EnclosureDesign.png" width="500px" alt="LOLENC Enclosure">
+                        <img src="./lolenc/RealSystem.png" width="200px" alt="LOLENC RealSystem">
+                    </div>
+                    <p class="bullet">
+                        Lolenc system is included in the enclosure which is designed with Autodesk Inventor.
+                    </p>
+
+                    <img src="./lolenc/RealSystem2.png" width="500px" alt="LOLENC RealSystem2 Image">
+                    <p class="bullet">
+                        After the all designs are done, we implemented the system on the real hardware.
+                    </p>
+
                     <img src="./lolenc/RabiData.png" width="500px" alt="LOLENC Block Diagram Image">
                     <p class="bullet">
                         The implemented system was utilized in real experiments and produced various experimental results, 
@@ -153,15 +166,42 @@
                 <div class="project">
                     <h2>FMC to EEM PCB board</h2>
                     <img src="./fmc2eem/FMC2EEM.png" width="500px" alt="Vivado Project Manager Image">
-                    <p class="bullet">Daughter board which converts FMC(VITA57.1/4) to EEM. Differential signal with 1Gbps.</p>
+                    <p class="bullet">
+                        Daughter board which converts FMC(VITA57.1/4) to EEM. 
+                        The board includes a feature to short the TDI and TDO signals, allowing the FPGA's 
+                        JTAG chain to remain intact and function properly even when the FPGA is powered on 
+                        after installation. It is designed to connect to other boards via the EEM interface 
+                        used in ARTIQ.
+                    </p>
+                    <img src="./fmc2eem/FMC2EEM_Trace.png" width="500px" alt="FMC2EEM_Trace Image">
+                    <p class="bullet">
+                        The differential signals are routed with a 100-Ohm differential characteristic 
+                        impedance and are placed between ground layers to minimize external noise interference.
+                         All signals have a mismatch of less than 3mm, and the phase delay of the differential 
+                         signals is also matched.
+                    </p>
+                    <img src="./fmc2eem/FMC2EEM_EyeDiagram.png" width="500px" alt="FMC2EEM FMC2EEM_EyeDiagram Image">
+                    <p class="bullet">
+                        The eye diagram analysis using ANSYS SIwave confirmed that the system operates without 
+                        issues at 1 Gbps.
+                    </p>
                 </div>
             </section>
         
             <section id="EEMtoTTL">
                 <div class="project">
                     <h2>EEM to TTL PCB board</h2>
-                    <img src="./eem2ttl/EEM2TTL.png" width="500px" alt="Vivado Project Manager Image">
-                    <p class="bullet">Daughter board converting LVTTL-LVDS signal. 50-Ohm termination is configurable.</p>
+                    <div class="image-container">
+                        <img src="./eem2ttl/EEM2TTL.png" width="500px" alt="Vivado Project Manager Image">
+                        <img src="./eem2ttl/RealSystem.jpg" width="160px" alt="EEM2TTL RealSystem Image">
+                    </div>
+                    <p class="bullet">The daughter board converts LVTTL to LVDS signals, 
+                        with configurable signal direction and 50-Ohm termination using jumpers. 
+                        Power can be supplied either through the EEM connector or an external power source. 
+                        A 12V to 3.3V DC-DC converter circuit provides the 3.3V power supply. 
+                        A buffer is used to drive a 50-Ohm impedance, ensuring the output voltage exceeds 2.0V, which meets the VIH requirements for LVTTL logic levels.
+                        The designed PCB serves as a Lolenc TTL driver, capable of controlling electronic devices with a timing resolution of 8 ns.
+                    </p>
                 </div>
             </section>
         
@@ -178,6 +218,13 @@
                     <h2>PMOD to AD9910 PCB board</h2>
                     <img src="./pmod2ad9910/PMOD2AD9910.png" width="500px" alt="Vivado Project Manager Image">
                     <p class="bullet">PCB connecting ArtyS7 FPGA to AD9910 DDS board</p>
+                    <img src="./pmod2ad9910/RealSystem.jpg" width="500px" alt="PMOD2AD9910 RealSystem Image">
+                    <p class="bullet">
+                        The designed PCB serves as a daughter board for the ArtyS7, facilitating a seamless 
+                        connection with the AD9910 board. As shown in the photo, it is mounted inside an 
+                        enclosure designed with Autodesk Inventor, where the AD9910 board is secured with 
+                        3D-printed structures.
+                    </p>
                 </div>
             </section>
             
