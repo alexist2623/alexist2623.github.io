@@ -95,6 +95,7 @@ header h1 {
 .projects h2 {
     margin-top: 10px;
     margin-bottom: 10px;
+    font-size: 1.8rem;
 }
 
 .project h2 a {

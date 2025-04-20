@@ -72,8 +72,8 @@ header h3 a:focus {
 }
 
 .profile-image img {
-    flex: 0 0 250px;
-    width: 250px; /* Adjust the width of the image */
+    flex: 0 0 200px;
+    width: 200px; /* Adjust the width of the image */
     height: auto;
 }
 
@@ -131,14 +131,12 @@ header h3 a:focus {
 
 .project p{
     margin-top: 5px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     margin-left : 5px;
     color : #000000;
 }
 
 .project .content {
-    display: flex;
-    align-items: flex-start;
     justify-content: space-between;
     padding-left: 5px !important;
 }
@@ -160,6 +158,12 @@ header h3 a:focus {
     margin: 0;
 }
 
+.project .bullet::before {
+    content: "• ";
+    font-size: 1.2em;
+    color: black;
+}
+
 footer {
     background: #333;
     color: #fff;
@@ -167,6 +171,69 @@ footer {
     padding: 10px 0;
     margin-top: 20px;
 }
+
+/*===================================================================================================
+ * Slide
+ ====================================================================================================*/
+.slider-container {
+    position: relative;
+    width: 600px;     /* 원하는 슬라이더 크기에 맞게 */
+    height: 400px;    /* 원하는 슬라이더 크기에 맞게 */
+    margin: 0 auto;   /* 가운데 정렬 */
+    overflow: hidden; /* 넘치면 숨김 */
+    border: 1px solid #ccc;
+    position: relative;
+  }
+  
+  /* 실제 슬라이드들을 가로로 일렬 배치 */
+  .slide-track {
+    display: flex;
+    /* 슬라이드 전환 시 움직임(트랜스폼) 애니메이션 */
+    transition: transform 0.5s ease;
+  }
+  
+  /* 각각의 슬라이드 */
+  .slide {
+    min-width: 100%; /* 부모 .slider-container의 100% 차지 */
+    box-sizing: border-box;
+  }
+  
+  /* 슬라이드 내부 이미지 */
+  .slide img {
+    width: 100%;      /* 부모의 너비에 맞춤 */
+    height: 100%;     /* 높이는 자동 → 원본 비율 유지 */
+    object-fit: contain;  /* (있어도 문제 없지만) height:auto에서는 영향이 적음 */
+    display: block;   /* 불필요한 공백 제거를 위해 block 지정 */
+  }
+  
+  /* 화살표 버튼 - 처음엔 안보이고, 호버 시 노출 (투명도) */
+  .arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(0,0,0,0.5);
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .slider-container:hover .arrow-btn {
+    opacity: 1;
+  }
+  
+  /* Prev button은 왼쪽, Next button은 오른쪽 */
+  .prev-btn {
+    left: 10px;
+  }
+  .next-btn {
+    right: 10px;
+  }
+  
 
 /*===================================================================================================
  * Education styles

@@ -33,11 +33,10 @@
         <div class="container">
             <div class="bio">
                 <p>
-                    I graduated from the Department of Electrical and Information Engineering at Seoul National University 
-                    with a double major in Physics and am currently conducting research as a research assistant in Professor Kim Tae-hyun's QuIQCL laboratory. 
-                    I have undertaken FPGA-related tasks and high-speed PCB design to control devices that output RF signals. 
-                    Additionally, I have developed various codes necessary for experiments and system construction. 
-                    Currently, I aim to enhance my expertise in firmware, RTL, and FPGA-related areas.
+                    I graduated from the Department of Electrical and Computer Engineering at Seoul National University 
+                    with a double major in Physics and designed and developed realtime quantum computer control system under professor Tae-hyun Kim. 
+                    I had focused to design and implement RFSoC-based control system and mixed signal PCB.
+                    Currently, I aim to enhance my expertise in FPGA-related areas.
                 </p>
             </div>
         </div>
@@ -49,33 +48,52 @@
 
     <section class="projects">
         <div class="container">
-            <h2>RTL/Firmware Project</h2>
+            <h2>FPGA Projects</h2>
             <div class="project">
                 <div class="content">
                     <div class="text">
-                        <h3><a href="./project/index.html#lolenc">LowLatENCy (LOLENC) Quantum Computer Control System based on RFSoC</a></h3>
-                        <p>Full arbitrary waveform generator which is C programmable on field with TCP</p>
-                    </div> 
-                    <div class="image">
-                        <img src="./project/lolenc/FullDiagram2.png" alt="FPGA Block Diagram">
-                    </div>
-                </div>
-            </div>
-        
-            <div class="project">
-                <div class="content">
-                    <div class="text">
-                        <h3><a href="./project/index.html#EntanglementExperiment">Remote Ion Entanglement Experiment</a></h3>
-                        <p>Remote ion entanglement experiment</p>
-                    </div> 
-                </div>
-            </div>
-        
-            <div class="project">
-                <div class="content">
-                    <div class="text">
-                        <h3><a href="./project/index.html#AD9910Control">AD9910 Control Module</a></h3>
-                        <p>The AD9910 control module handles signal generation for quantum experiments with precision timing.</p>
+                        <h3>
+                            <a href="./project/index.html#lolenc">RFSoC-based Trapped-Ion Qauntum Computer Control System</a>
+                        </h3>
+                        
+                        <div class="slider-container">
+                            <div class="slide-track">
+                            <!-- 필요한 만큼 슬라이드(이미지) 추가 -->
+                            <div class="slide">
+                                <img src="./project/lolenc/FullDiagram2.png" alt="Image1">
+                            </div>
+                            <div class="slide">
+                                <img src="./project/lolenc/ProgrammingProcedure.png" alt="Image2">
+                            </div>
+                            <div class="slide">
+                                <img src="./project/lolenc/AWG_Structure.png" alt="Image3">
+                            </div>
+                            </div>
+                        
+                            <!-- 화살표 버튼(Prev, Next). 기본 숨김, hover 시 노출 -->
+                            <button class="arrow-btn prev-btn">&laquo;</button>
+                            <button class="arrow-btn next-btn">&raquo;</button>
+                        </div>
+                        <p class="bullet">
+                            900 ns WCET latency with 1 channel, and 2.16 us with 8 channels, 4Gsamples, 
+                            1Gbps true-arb AWG with simultaneous ceaseless multi channel output with periodic 
+                            DRAM refresh
+                        </p>
+                        <p class="bullet">
+                            Non-blocking DMA achieving 3.2GBps with simultaneous multiple independent modules enabling 5192 electrodes control
+                        </p>
+                        <p class="bullet">
+                            Realtime shuttling, measurement, baremetal server running C++ code in field are integrated on single chip
+                        </p>
+                        <p class="bullet">
+                            Json meta file based automatic FPGA project generation tool chain
+                        </p>
+                        <p class="bullet">
+                            Compile and transmit binary code and schedule experiment request, and conduct RPC from FPGA
+                        </p>
+                        <p class="bullet">
+                            Pulse optimization through ADAM algorithm and is verified with experiment
+                        </p>
                     </div> 
                 </div>
             </div>
@@ -83,33 +101,68 @@
             <div class="project">
                 <div class="content">
                     <div class="text">
-                        <h3><a href="./project/index.html#ImageProcessingFPGA">Image Display System for Photonic Machine Learning</a></h3>
-                        <p>Image display system with DVI/HDMI for SLM.</p>
-                    </div> 
-                    <div class="image">
-                        <img src="./project/zcu104image/system.png" alt="FPGA Block Diagram">
+                        <h3>
+                            <a href="./project/index.html#ImageProcessingFPGA">SLM Control, and Frame Grabber System</a>
+                        </h3>
+
+                        <div class="slider-container">
+                            <div class="slide-track">
+                            <!-- 필요한 만큼 슬라이드(이미지) 추가 -->
+                            <div class="slide">
+                                <img src="./project/zcu104image/system.png" alt="Image4">
+                            </div>
+                            <div class="slide">
+                                <img src="./project/zcu104image/ZCU104Display.png" alt="Image5">
+                            </div>
+                            <div class="slide">
+                                <img src="./project/zcu104image/ZCU104Interrupt.png" alt="Image6">
+                            </div>
+                            </div>
+                        
+                            <!-- 화살표 버튼(Prev, Next). 기본 숨김, hover 시 노출 -->
+                            <button class="arrow-btn prev-btn">&laquo;</button>
+                            <button class="arrow-btn next-btn">&raquo;</button>
+                        </div>
+                        <p class="bullet">
+                            Realtime SLM control via DVI, Cameralink frame grabber
+                        </p>
                     </div>
                 </div>
             </div>
         
-            <h2>Python Project</h2>
+            <h2>PCB Projects</h2>
             <div class="project">
                 <div class="content">
                     <div class="text">
-                        <h3><a href="./project/index.html#VivadoManager">Vivado Project Manager</a></h3>
-                        <p>Generate custom IP and connect block diagram automatically based on json meta file</p>
-                    </div> 
-                    <div class="image">
-                        <img src="./project/vivado_project_manager/VivadoProjectManager.png" alt="VivadoProjectManager">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="project">
-                <div class="content">
-                    <div class="text">
-                        <h3><a href="./project/index.html#LolencServer">LOLENC Master Server</a></h3>
-                        <p>Lolenc control python server</p>
+                        <h3><a href="./project/index.html#rfmc">RF Frontend</a></h3>
+                        
+                        <div class="slider-container">
+                            <div class="slide-track">
+                            <!-- 필요한 만큼 슬라이드(이미지) 추가 -->
+                            <div class="slide">
+                                <img src="./project/rfmc/rfmc.png" alt="Image4">
+                            </div>
+                            <div class="slide">
+                                <img src="./project/rfmc/RFMC_Schematic.png" alt="Image4">
+                            </div>
+                            <div class="slide">
+                                <img src="./project/rfmc/hfss_isolation.png" alt="Image5">
+                            </div>
+                            <div class="slide">
+                                <img src="./project/rfmc/hfss_model.png" alt="Image6">
+                            </div>
+                            </div>
+                        
+                            <!-- 화살표 버튼(Prev, Next). 기본 숨김, hover 시 노출 -->
+                            <button class="arrow-btn prev-btn">&laquo;</button>
+                            <button class="arrow-btn next-btn">&raquo;</button>
+                        </div>
+                        
+                        <p class="bullet">
+                            8-layer mixed signal daughter board achieving -20dB reflection,
+                            and 250dB isolated between digital interface controling pheripheral
+                            devices in realtime and analog region transmitting and filtering RF signal.                            
+                        </p>
                     </div> 
                 </div>
             </div>
@@ -117,60 +170,32 @@
             <div class="project">
                 <div class="content">
                     <div class="text">
-                        <h3><a href="./project/index.html#PulseShaping">Ion Trap Two Qubit Gate Pulse Shaping Optimization</a></h3>
-                        <p>Pulse shaping optimization through ADAM algorithm and analysis between experiment data and calculated data</p>
-                    </div> 
-                    <div class="image">
-                        <img src="./project/pulse_shaping/trajectory.png" alt="VivadoProjectManager">
-                    </div>
-                </div>
-            </div>
-        
-            <h2>PCB Project</h2>
-            <div class="project">
-                <div class="content">
-                    <div class="text">
-                        <h3><a href="./project/index.html#FMCtoEEM">FMC to EEM PCB board</a></h3>
-                        <p>Daughter board which converts FMC(VITA57.1/4) to EEM. Differential signal with 1Gbps.</p>
-                    </div> 
-                    <div class="image">
-                        <img src="./project/fmc2eem/FMC2EEM.png" alt="FMC2EEM board">
-                    </div>
-                </div>
-            </div>
-        
-            <div class="project">
-                <div class="content">
-                    <div class="text">
-                        <h3><a href="./project/index.html#EEMtoTTL">EEM to TTL PCB board</a></h3>
-                        <p>Daughter board converting LVTTL-LVDS signal. 50-Ohm termination is configurable.</p>
-                    </div> 
-                    <div class="image">
-                        <img src="./project/eem2ttl/EEM2TTL.png" alt="EEM2TTL board">
-                    </div>
-                </div>
-            </div>
-        
-            <div class="project">
-                <div class="content">
-                    <div class="text">
-                        <h3><a href="./project/index.html#PMODtoSMA">PMOD to SMA PCB board</a></h3>
-                        <p>50-Ohm impedance, and delay matched PCB board used in ion entanglement experiment.</p>
-                    </div> 
-                    <div class="image">
-                        <img src="./project/pmod2sma/PMOD2SMA.png" alt="PMOD2SMA board">
-                    </div>
-                </div>
-            </div>
-        
-            <div class="project">
-                <div class="content">
-                    <div class="text">
-                        <h3><a href="./project/index.html#PMODtoAD9910">PMOD to AD9910 PCB board</a></h3>
-                        <p>PCB connecting ArtyS7 FPGA to AD9910 DDS board</p>
-                    </div> 
-                    <div class="image">
-                        <img src="./project/pmod2ad9910/PMOD2AD9910.png" alt="PMOD2AD9910 board">
+                        <h3>
+                            <a href="./project/index.html#dac">Low Noise DAC System</a>
+                        </h3>
+
+                        <div class="slider-container">
+                            <div class="slide-track">
+                            <!-- 필요한 만큼 슬라이드(이미지) 추가 -->
+                                <div class="slide">
+                                    <img src="./project/dac/dac.png" alt="Image4">
+                                </div>
+                                <div class="slide">
+                                    <img src="./project/dac/Ground.png" alt="Image4">
+                                </div>
+                                <div class="slide">
+                                    <img src="./project/dac/dac_si.png" alt="Image4">
+                                </div>
+                            </div>
+                        
+                            <!-- 화살표 버튼(Prev, Next). 기본 숨김, hover 시 노출 -->
+                            <button class="arrow-btn prev-btn">&laquo;</button>
+                            <button class="arrow-btn next-btn">&raquo;</button>
+                        </div>
+
+                        <p class="bullet">
+                            8-layer DAC board to implement realtime shuttling.                        
+                        </p>
                     </div>
                 </div>
             </div>
@@ -178,26 +203,64 @@
             <div class="project">
                 <div class="content">
                     <div class="text">
-                        <h3><a href="./project/index.html#BALUN">Balun PCB board</a></h3>
-                        <p>PCB converting differential anaglog signal to single ended analog signal which is 100-Ohm, 50-Ohm impedance matched respectively</p>
-                    </div> 
-                    <div class="image">
-                        <img src="./project/balun/Balun.png" alt="Balun board">
+                        <h3>
+                            <a href="./project/index.html#FMCtoEEM">High Speed FMC Router</a>
+                        </h3>
+
+                        <div class="slider-container">
+                            <div class="slide-track">
+                            <!-- 필요한 만큼 슬라이드(이미지) 추가 -->
+                                <div class="slide">
+                                    <img src="./project/fmc2eem/FMC2EEM.png" alt="Image4">
+                                </div>
+                                <div class="slide">
+                                    <img src="./project/fmc2eem/FMC2EEM_EyeDiagram.png" alt="Image4">
+                                </div>
+                            </div>
+                        
+                            <!-- 화살표 버튼(Prev, Next). 기본 숨김, hover 시 노출 -->
+                            <button class="arrow-btn prev-btn">&laquo;</button>
+                            <button class="arrow-btn next-btn">&raquo;</button>
+                        </div>
+
+                        <p class="bullet">
+                            Daughter board which converts VITA57.1/4 FMC to EEM achieving 1Gbps differential signal transmission
+                        </p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="project">
+                <div class="content">
+                    <div class="text">
+                        <h3>
+                            <a href="./project/index.html#EEMtoTTL">Bidirectional LVDS to TTL</a>
+                        </h3>
+                        
+                        <div class="slider-container">
+                            <div class="slide-track">
+                            <!-- 필요한 만큼 슬라이드(이미지) 추가 -->
+                                <div class="slide">
+                                    <img src="./project/eem2ttl/EEM2TTL.png" alt="Image4">
+                                </div>
+                                <div class="slide">
+                                    <img src="./project/eem2ttl/CircuitDiagram.png" alt="Image4">
+                                </div>
+                            </div>
+                        
+                            <!-- 화살표 버튼(Prev, Next). 기본 숨김, hover 시 노출 -->
+                            <button class="arrow-btn prev-btn">&laquo;</button>
+                            <button class="arrow-btn next-btn">&raquo;</button>
+                        </div>
+
+                        <p class="bullet">
+                            4-layer TTL-LVDS bidirectional convertor
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-<!--
-    <section class="research-interests">
-        <div class="container">
-            <h2>Research Interests</h2>
-            <ul>
-                <li>RFSoC</li>
-            </ul>
-        </div>
-    </section>
--->    
 
     <footer>
         <div class="container">

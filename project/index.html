@@ -21,156 +21,178 @@
 
     <section class="projects">
         <div class="container">
-            <h1>RTL/Firmware Project</h1>
+            <h1>FPGA Project</h1>
             <section id="lolenc">
                 <div class="project">
-                    <h2>LowLatENCy (LOLENC) Quantum Computer Control System based on RFSoC</h2>
-                    <img src="./lolenc/FullDiagram2.png" width="600px" alt="LOLENC Block Diagram Image">
+                    <h2>RFSoC-based TIQC Control System</h2>
+                    <img src="./lolenc/FullDiagram2.png" width="800px" alt="LOLENC Block Diagram Image">
                     <p class="bullet">
-                        Full arbitrary waveform generator which is C programmable on field with TCP. 
-                        Lolenc system has 3 cores: TCP Server, ELF Runner, and Moninj respectively.
-                        All cores are running in baremetal.
-                        TCP Server receives the command from server with LWIP server.
-                        TCP Server makes interrupt to ELF Runner, and ELF Runner loads ELF file from DRAM and run it or 
-                        forcibly stop running ELF.
-                        Load, and stop ELF code is written in ARMv8 assembly.
-                        Moninj monitors TTL signal and receives override command from TCP Server, and send it to TTL modules.
-                    </p>
-                    <img src="./lolenc/ProgrammingProcedure.png" width="500px" alt="LOLENC Block Diagram Image">
-                    <p class="bullet">
-                        User select CPP file through IQUIP GUI, and make schedule to run it on the master server. 
-                        Then, master find highest priority of schedule, and compile the CPP width GNU compiler.
-                        Linker script which is written to run on ELF Runner links all user CPP object file and bsp object file.
-                        Then, master send ELF file to ELF Runner through TCP Server.
-                    </p>
-                    <div class="image-container">
-                        <img src="./lolenc/MACPipeline.png" width="300px" alt="LOLENC Block Diagram Image">
-                        <img src="./lolenc/DDS.png" width="400px" alt="LOLENC Block Diagram Image">
-                    </div>
-                    <p class="bullet">
-                        User can select RF source: DDS or AWG.
-                        DDS generates sin wave with given frequency, amplitude, and phase parameters.
-                        Changing frequency does change only accumulating phase value, which changes phase continuously.
-                        However, some experiments require phase change in stepwise, and to meet timing constraints, 
-                        2 pipelined MAC which utilizes Vedic algorithm is used.
+                        True-arb waveform generation capable fully integrated TIQC control SoC. 
+                        It has 3 cores: Network, Error, and Experiment Processor respectively.
+                        All cores are running in baremetal to remove unpredictable behavior of OS.
+                        Network Processor manages commands from the host server where TCP server is running with LWIP.
+                        It makes interrupt to Experiment Processor to load binary code which is transmitted from the host server or
+                        forcibly stop running program.
+                        Error Processor monitors all modules in realtime, and record error signals, or override the signal for each module.
                     </p>
 
-                    <img src="./lolenc/MemoryController.png" width="500px" alt="LOLENC Block Diagram Image">
-                    <p class="bullet">
-                        Due to the limitations of FPGA resources, synthesizing multiple DDS modules to create multi-tone signals 
-                        is constrained. To overcome this, we implemented AWG functionality. Unlike superconducting qubits, 
-                        ion trap-based quantum computers require longer pulse durations. To address this, we developed a 
-                        module that controls data transactions between DRAM and DAC.
-                    </p>
+                    <h3>AWG</h3>
+                        <div class="image-container">
+                            <img src="./lolenc/AWG_Structure.png" width="400px" alt="LOLENC AWG_Structure">
+                            <img src="./lolenc/AWG_Memory.png" width="300px" alt="LOLENC AWG_Memory">
+                        </div>
+                        <p class="bullet">
+                            Typical AWG device lacks capability to generate arbitrary waveform for TIQC, since these
+                            utilizes only BRAM. To overcome this limitation, AWG utilizing DRAM is implemented. 
+                            To prevent unpredictable latency due to DRAM refresh, waveform data is aligned to memory
+                            row size, and data transaction is scheduled equally.
+                        </p>
+                        <img src="./lolenc/DRAM_TOTAL.png" width="400px" alt="LOLENC DRAM_TOTAL">
+                        <p class="bullet">
+                            AWG latency is calculated theoretically, and it is compared with the measured latency.
+                            900 ns WCET latency is measured with 1 channel, and 2.16 us is measured with 8 channels.
+                        </p>
 
-                    <div class="image-container">
-                        <img src="./lolenc/InterruptController.png" width="300px" alt="LOLENC Block Diagram Image">
-                        <img src="./lolenc/CommandTable.png" width="400px" alt="LOLENC Block Diagram Image">
-                    </div>
-                    <p class="bullet">
-                        Typically, register-based AXI accesses return a response immediately after a write operation. 
-                        However, quantum computer controllers may not do so in order to prevent overflow of the module's FIFO. 
-                        We have developed a method to prevent this by combining module and firmware solutions
-                    </p>
-
-                    <div class="image-container">
-                        <img src="./lolenc/EnclosureDesign.png" width="500px" alt="LOLENC Enclosure">
-                        <img src="./lolenc/RealSystem.png" width="200px" alt="LOLENC RealSystem">
-                    </div>
-                    <p class="bullet">
-                        Lolenc system is included in the enclosure which is designed with Autodesk Inventor.
-                    </p>
-
-                    <img src="./lolenc/RealSystem2.png" width="500px" alt="LOLENC RealSystem2 Image">
-                    <p class="bullet">
-                        After the all designs are done, we implemented the system on the real hardware.
-                    </p>
-
-                    <img src="./lolenc/RabiData.png" width="500px" alt="LOLENC Block Diagram Image">
-                    <p class="bullet">
-                        The implemented system was utilized in real experiments and produced various experimental results, 
-                        including Rabi oscillations.
-                    </p>
+                    <h3>Host Server</h3>
+                        <img src="./lolenc/ProgrammingProcedure.png" width="400px" alt="LOLENC Block Diagram Image">
+                        <p class="bullet">
+                            User select CPP file through IQUIP GUI, and make schedule to run it on the master server. 
+                            Then, master find highest priority of schedule, and compile the CPP width GNU compiler.
+                            Linker script which is written to run on ELF Runner links all user CPP object file and bsp object file.
+                            Then, master send ELF file to ELF Runner through TCP Server.
+                        </p>
+                    
+                    <h3>Automatic Vivado Project Generation</h3>
+                        <div class="image-container">
+                            <img src="./vivado_project_manager/VivadoProjectManager.png" width="600px" alt="Vivado Project Manager Image">
+                            <img src="./vivado_project_manager/RealSystem.png" width="100px" alt="System made by Vivado Project">
+                        </div>
+                        <p class="bullet">
+                            Generate custom IP and connect block diagram automatically based on json meta file
+                            Lolenc block diagram is generated by Vivado Project Manager, which includes almost 45 custom IPs.
+                        </p>
+                    
+                    <h3>Ion Trap Two Qubit Gate Pulse Shaping Optimization</h3>
+                        <img src="./pulse_shaping/trajectory.png" width="400px" alt="PulseShaping">
+                        <p class="bullet">
+                            Pulse shaping optimization through ADAM algorithm and analysis between experiment data and calculated data
+                        </p>
                 </div>
             </section>
-        
-            <section id="EntanglementExperiment">
-                <div class="project">
-                    <h2>Remote Ion Entanglement Experiment</h2>
-                    <p class="bullet">
-                        Remote ion entanglement experiment. Meta stable caused by asynchronous PMT signal is fixed by
-                        two stage FF. Additionally PMOD2SMA board is used to connect FPGA and PMT which is used to
-                        detect ion fluorescence with resolution of 1.25ns.
-                    </p>
-                </div>
-            </section>
-        
-            <section id="AD9910Control">
-                <div class="project">
-                    <h2>AD9910 Control Module</h2>
-                    <p class="bullet">
-                        The AD9910 control module handles signal generation for quantum experiments with precision timing.
-                    </p>
-                </div>
-            </section>
-            
+                    
             <section id="ImageProcessingFPGA">
                 <div class="project">
-                    <h2>Image Processing in FPGA for Photonic Machine Learning</h2>
-                    <img src="./zcu104image/system.png" width="700px" alt="Vivado Project Manager Image">
+                    <h2>DVI Display & Cameralink Frame Grabber</h2>
+                    <img src="./zcu104image/system.png" width="500px" alt="Vivado Project Manager Image">
                     <p class="bullet">
                         Image display system with DVI/HDMI for SLM.
                     </p>
-                    <img src="./zcu104image/ZCU104Display.png" width="700px" alt="Vivado Project Manager Image">
+                    <div class="image-container">
+                        <img src="./zcu104image/ZCU104Display.png" width="400px" alt="Vivado Project Manager Image">
+                        <img src="./zcu104image/ZCU104Interrupt.png" width="400px" alt="Vivado Project Manager Image">
+                    </div>
                     <p class="bullet">
                         ZCU104 Display System
-                    </p>
-                    <img src="./zcu104image/ZCU104Interrupt.png" width="700px" alt="Vivado Project Manager Image">
-                    <p class="bullet">
                         ZCU104 Interrupt System
                     </p>
                 </div>
             </section>
         
-            <h1>Python Project</h1>
-            <section id="VivadoManager">
+            <h1>PCB Project</h1>
+            <section id="rfmc">
                 <div class="project">
-                    <h2>Vivado Project Manager</h2>
-                    <img src="./vivado_project_manager/VivadoProjectManager.png" width="700px" alt="Vivado Project Manager Image">
+                    <h2>RF Frontend</h2>
+                    <img src="./rfmc/rfmc.png" width="500px" alt="rfmc">
                     <p class="bullet">
-                        Generate custom IP and connect block diagram automatically based on json meta file
+                        Daughter board which transmit RF signal to optical modulator which drive quantum gate 
+                        for trapped ion. Typical frequency region is 200MHz, and to transform from differential RF
+                        signals to single ended, balun is placed.
                     </p>
-                    
-                    <img src="./vivado_project_manager/RealSystem.png" width="100px" alt="System made by Vivado Project">
+                    <img src="./rfmc/RFMC_Schematic.png" width="500px" alt="rfmc_RFMC_Schematic">
                     <p class="bullet">
-                        Lolenc block diagram is generated by Vivado Project Manager, which includes almost 45 custom IPs.
+                        PI pad is placed in front of balun to suppress reflection. Power circuit is implemented to
+                        generate 1.8V, and 3.3V from 12V.
                     </p>
-                </div>
-            </section>
-            
-            <section id="LolencServer">
-                <div class="project">
-                    <h2>LOLENC Master Server</h2>
+                    <h3>SI Wave Simulation</h3>
+                    <img src="./rfmc/S_parameter.png" width="500px" alt="rfmc_S_Parameter">
                     <p class="bullet">
-                        Lolenc control python server
+                        To verify schematic and layout, simulation is conducted through ANSYS SIwave. As shown in 
+                        above figure, cross talk is suppressed under -96dB, and S parameter follows our expectation.
+                    </p>
+                    <img src="./rfmc/S11_parameter.png" width="500px" alt="rfmc_S11_Parameter">
+                    <p class="bullet">
+                        Reflection is suppressed under -20dB at our target frequency.
+                    </p>
+                    <img src="./rfmc/S_digital.png" width="500px" alt="rfmc_S_digital">
+                    <p class="bullet">
+                        Crosstalk between the most closest digital trace and RF trace is simulated and shows 
+                        that it is suppressed under -250dB.
+                    </p>
+                    <h3>HFSS Simulation</h3>
+                    <img src="./rfmc/hfss_model.png" width="500px" alt="rfmc_hfss_model">
+                    <p class="bullet">
+                        To clarify coplanar waveguide(CPW) to SMA connector transition, HFSS simulation is conducted.
+                        6 different models are simulated, where the SMT connector, through hole connector without pad, and
+                        through hole connector with pad with, or without adequate size of throughole are compared. 
+                    </p>
+                    <img src="./rfmc/hfss_s_parameter.png" width="500px" alt="rfmc_hfss_s_parameter">
+                    <p class="bullet">
+                        The simulation results show that through hole size critically affects the S parameter, and SMT, through hole
+                        case does not show big difference at our target frequency.
+                    </p>
+                    <h3>EMC Consideration</h3>
+                    <img src="./rfmc/hfss_emc_model.png" width="300px" alt="rfmc_hfss_emc_model">
+                    <p class="bullet">
+                        To isolate switching noise from power supply, power circuit is implemented on the islanded region.
+                        To verify the isolation, HFSS simulation is conducted.
+                    </p>
+                    <img src="./rfmc/hfss_isolation.png" width="500px" alt="rfmc_hfss_isolation">
+                    <p class="bullet">
+                        Simulation results show that island structure is effective to isolate the noise. In addition to switching noise
+                        suppression, to suppress unwanted EMI to RF signal, RF signals are shielded with ground plane. When the RF signals
+                        need to be connected to exposed components, shield can is placed to protect the RF signal.
                     </p>
                 </div>
             </section>
 
-            <section id="PulseShaping">
+            <section id="dac">
                 <div class="project">
-                    <h2>Ion Trap Two Qubit Gate Pulse Shaping Optimization</h2>
-                    <img src="./pulse_shaping/trajectory.png" width="500px" alt="PulseShaping">
+                    <h2>
+                        Low Noise DAC System
+                    </h2>
+                    <img src="./dac/dac.png" width="400px" alt="DAC">
                     <p class="bullet">
-                        Pulse shaping optimization through ADAM algorithm and analysis between experiment data and calculated data
+                        In TIQC, ions are shuttled to implement QCCD architecture.
+                        Shuttling is implemented by DAC, and to improve fidelity decrease from DAC,
+                        it should be designed to be low noise.
+                        To remove low, and high frequency noise, DAC system is fully shielded and 
+                        ground loop is removed.
                     </p>
+                    <h3>
+                        Overall System
+                    </h3>
+                        <img src="./dac/Ground.png" width="800px" alt="DAC">
+                        <p class="bullet">
+                            Remove ground loop, and shield DAC from high freuqnecy noise and ESD.
+                        </p>
+                        
+                        <img src="./dac/dac_hybrid.png" width="200px" alt="DAC">
+                        <p class="bullet">
+                            Remove ground loop, and shield DAC from high freuqnecy noise and ESD.
+                        </p>
+                    <h3>
+                        Signal Integrity
+                    </h3>
+                        <img src="./dac/dac_si.png" width="700px" alt="DAC">
+                        <p class="bullet">
+                            Remove ground loop, and shield DAC from high freuqnecy noise and ESD.
+                        </p>
                 </div>
             </section>
-        
-            <h1>PCB Project</h1>
+
             <section id="FMCtoEEM">
                 <div class="project">
-                    <h2>FMC to EEM PCB board</h2>
+                    <h2>High Speed FMC Router</h2>
                     <img src="./fmc2eem/FMC2EEM.png" width="500px" alt="Vivado Project Manager Image">
                     <p class="bullet">
                         Daughter board which converts FMC(VITA57.1/4) to EEM. 
@@ -196,10 +218,11 @@
         
             <section id="EEMtoTTL">
                 <div class="project">
-                    <h2>EEM to TTL PCB board</h2>
+                    <h2>Bidirectional LVDS to TTL</h2>
                     <div class="image-container">
-                        <img src="./eem2ttl/EEM2TTL.png" width="500px" alt="Vivado Project Manager Image">
-                        <img src="./eem2ttl/RealSystem.jpg" width="160px" alt="EEM2TTL RealSystem Image">
+                        <img src="./eem2ttl/EEM2TTL.png" width="400px" alt="Vivado Project Manager Image">
+                        <img src="./eem2ttl/CircuitDiagram.png" width="400px" alt="EEM2TTL RealSystem Image">
+                        <img src="./eem2ttl/RealSystem.jpg" width="120px" alt="EEM2TTL RealSystem Image">
                     </div>
                     <p class="bullet">The daughter board converts LVTTL to LVDS signals, 
                         with configurable signal direction and 50-Ohm termination using jumpers. 
@@ -208,14 +231,6 @@
                         A buffer is used to drive a 50-Ohm impedance, ensuring the output voltage exceeds 2.0V, which meets the VIH requirements for LVTTL logic levels.
                         The designed PCB serves as a Lolenc TTL driver, capable of controlling electronic devices with a timing resolution of 8 ns.
                     </p>
-                </div>
-            </section>
-        
-            <section id="PMODtoSMA">
-                <div class="project">
-                    <h2>PMOD to SMA PCB board</h2>
-                    <img src="./pmod2sma/PMOD2SMA.png" width="500px" alt="Vivado Project Manager Image">
-                    <p class="bullet">50-Ohm impedance, and delay matched PCB board used in ion entanglement experiment.</p>
                 </div>
             </section>
         
@@ -230,23 +245,6 @@
                         connection with the AD9910 board. As shown in the photo, it is mounted inside an 
                         enclosure designed with Autodesk Inventor, where the AD9910 board is secured with 
                         3D-printed structures.
-                    </p>
-                </div>
-            </section>
-            
-            <section id="BALUN">
-                <div class="project">
-                    <h2>Balun PCB board</h2>
-                    <img src="./balun/Balun.png" width="300px" alt="Vivado Project Manager Image">
-                    <p class="bullet">
-                        PCB converting differential anaglog signal to single ended analog signal which is 100-Ohm, 
-                        50-Ohm impedance matched respectively.
-                    </p>
-                    <img src="./balun/SIWaveSim.png" width="500px" alt="Vivado Project Manager Image">
-                    <p class="bullet">
-                        To verify whether resistor termination is unnecessary 
-                        on the balun input port, we extracted the IBIS model of the balun component and the IPC2581 
-                        file from the OrCAD PCB design and confirmed this through simulations using ANSYS SIwave.
                     </p>
                 </div>
             </section>
