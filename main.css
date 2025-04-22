@@ -178,7 +178,7 @@ footer {
 .slider-container {
     position: relative;
     width: 600px;     /* 원하는 슬라이더 크기에 맞게 */
-    height: 400px;    /* 원하는 슬라이더 크기에 맞게 */
+    height: 350px;    /* 원하는 슬라이더 크기에 맞게 */
     margin: 0 auto;   /* 가운데 정렬 */
     overflow: hidden; /* 넘치면 숨김 */
     border: 1px solid #ccc;
