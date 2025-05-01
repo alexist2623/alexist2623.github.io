@@ -307,3 +307,62 @@ ul li {
     color: #e63946; /* Text color for active page (e.g., red) */
 }
 
+/* (1) 드롭다운 부모 컨테이너 */
+.dropdown {
+    position: relative;   
+    display: inline-block;  /* 인라인 블록(버튼 옆에 맞춰 배치) */
+    top: 0;
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1000; /* Ensures the nav stays on top */
+    white-space: nowrap;    /* 한 줄만 사용 */
+}
+
+/* (2) 실제 드롭다운 목록 */
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;               /* ← 부모의 오른쪽에 붙임 */
+    left: auto;             /* 기존 left 값 무효화 */
+    min-width: 160px;
+    background: #f9f9f9;
+    box-shadow: 0 8px 16px rgba(0,0,0,.2);
+    z-index: 999;
+
+    /* 기본 숨김 */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity .25s ease, transform .25s ease;
+    
+    white-space: nowrap;    /* 한 줄만 사용 */
+}
+
+/* (3) 드롭다운 트리거(hover·포커스) */
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);        /* 아래로 “촤라락” */
+}
+
+/* (4) 내부 링크 스타일 */
+.dropdown-content a {
+    display: block;
+    padding: 12px 16px;
+    color: #000;
+    text-decoration: none;
+
+    /* 너무 길면 말줄임 처리 */
+    overflow: hidden;
+    text-overflow: ellipsis; /* … 표시 */
+}
+.dropdown-content a:hover {
+    background: #eee;
+}
+
+.fixed-nav .dropdown-content a.active {
+    color: #e63946; /* Text color for active page (e.g., red) */
+}

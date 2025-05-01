@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeonghyun Park - Profile</title>
+    <link rel="stylesheet" href="./project.css">
+</head>
+<body>
+    <!-- Fixed navigation bar -->
+    <nav class="fixed-nav">
+        <div class="nav-left">
+            <a href="https://www.linkedin.com/in/jeonghyun-park-a597b3268/" class="button">Linkedin</a>
+        </div>
+        <div class="nav-right">
+            <a href="../../index.html" class="button">Profile</a>
+            <a href="../../resume/index.html" class="button">Resume</a>
+            <!-- 이 부분이 핵심: Project 버튼에 드롭다운 -->
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">FPGA Project</a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a href="../../project/lolenc/index.html">RFSoC-based TIQC Control System</a>
+                    <a href="../../project/zcu104image/index.html">Image Transaction System</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a href="../../project/index.html" class="button">
+                    <div class="active">
+                        PCB Project
+                    </div>
+                </a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a class="active", href="../../project/rfmc/index.html">RF Frontend</a>
+                    <a href="../../project/dac/index.html">Low Noise DAC System</a>
+                    <a href="../../project/fmc2eem/index.html">High Speed FMC Router</a>
+                    <a href="../../project/eem2ttl/index.html">Bidirectional LVDS to TTL</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="projects">
+        <div class="container">
+            <section id="rfmc">
+                <div class="project">
+                    <h1>RF Frontend Board</h1>
+                        <img src="./rfmc.png" width="500px" alt="rfmc">
+
+                    <h2>Overview</h2>
+                        <img width="600" alt="image" src="./CircuitDiagram.png">
+                        <p class="bullet">
+                            Daughter board which transmit RF signal to optical modulator which drive quantum gate 
+                            for trapped ion. Typical frequency region is 200MHz, and to transform from differential RF
+                            signals to single ended, balun is placed.
+                        </p>
+
+                    <h2> Board Configuration </h2>
+                        <img width="600" alt="image" src="./CircuitIllustration.png">
+                        <img width="500" alt="image" src="./CircuitTable.png">
+
+                    <h2> Design Consideration </h2>
+                        <h3>PI pad</h3>
+                            <p class="bullet">
+                                PI pad is placed in front of balun to suppress reflection. It does not affect impedance of circuit, but only attenuate RF signal.
+                            </p>
+                        <h3>Balun</h3>
+                            <p class="bullet">
+                                The balun converts the differential RF signal to a single-ended signal. Because its passband starts above DC, only the AC component is transmitted through the balun.
+                            </p>
+                        
+                        <h3>Stitching via/trace shielding</h3>
+                            <img width="500" alt="image" src="./stitch_via.png">
+                            <p class="bullet">
+                                Stitching vias help shield the signal trace from external noise. A common guideline is to space stitching vias no more than one-tenth of the wavelength at the highest target frequency; placing them even closer poses no problem and can further enhance shielding.
+                            </p>
+                        
+                            <img width="500" alt="image" src="./trace.png">
+                            <p class="bullet">
+                                The RF trace is normally routed as a strip-line between two ground planes for noise immunity. Where the trace must surface to the top or bottom layer—to reach a component such as a balun or filter—it is enclosed under an EMC shield which is mounted on the top layer, maintaining isolation at that transition.
+                            </p>
+                        
+                        <h3>Phase match</h3>
+                            <img width="500" alt="image" src="./phase_match.png">
+                            <p class="bullet">
+                                When a differential pair turns a corner, the outer trace travels a slightly longer path than the inner trace. This skew introduces phase mismatch, converting some of the differential signal to common-mode noise. The imbalance can be mitigated by enforcing phase (length) matching at every bend—typically by inserting small rounded “bulges,” i.e., length-compensation bumps, in the shorter inner trace—so that both conductors remain electrically equal in length.
+                            </p>
+                            
+                        <h3>Length match</h3>
+                            <p class="bullet">
+                                Signal length should be matched to guarantee the same signal latency.
+                            </p>
+                        
+                        <h3>Component hole</h3>
+                            <img width="500" alt="image" src="./hole_match.png">
+                            <p class="bullet">
+                                A typical SMT component pad presents a large copper area, which significantly increases parasitic inductance. This unwanted inductance can be mitigated by back-drilling a hole beneath the top or bottom plane where component is soldered.
+                            </p>
+                        
+                        <h3>Impedance at connector</h3>
+                            <img width="500" alt="image" src="./impedance_at_hole.png">
+                            <p class="bullet">
+                                A solder-less SMA connector offers the best impedance continuity because the signal path avoids any solder-induced discontinuity. However, it is expensive and its advantage is negligible outside the millimetre-wave band, so a plated through-hole (PTH) SMA is employed instead. As the signal transitions from the PCB trace to the PTH connector, it encounters an impedance mismatch. This mismatch is mitigated by drilling an oversized anti-pad (a “coax-sized” clearance) around the centre pin, ensuring that the transition maintains the target impedance and thereby minimises return loss (S11).
+                            </p>
+                        
+                        <h3>Analog/digital ground isolation</h3>
+                            <img width="500" alt="image" src="./ground_isolation.png">
+                            <p class="bullet">
+                                Routing digital and analog traces in separate PCB regions usually provides adequate ground isolation. To further reduce coupling, the ground planes are physically split, and the switching regulator is placed on an isolated “island” so that its switching noise remains confined.
+                            </p>
+
+                    <h2> Test Results </h2>
+                        <h3>SI Wave Simulation</h3>
+                            <img src="./S_parameter.png" width="500px" alt="rfmc_S_Parameter">
+                            <p class="bullet">
+                                To verify schematic and layout, simulation is conducted through ANSYS SIwave. As shown in 
+                                above figure, cross talk is suppressed under -96dB, and S parameter follows our expectation.
+                            </p>
+                            <img src="./S11_parameter.png" width="500px" alt="rfmc_S11_Parameter">
+                            <p class="bullet">
+                                Reflection is suppressed under -20dB at our target frequency.
+                            </p>
+                            <img src="./S_digital.png" width="500px" alt="rfmc_S_digital">
+                            <p class="bullet">
+                                Crosstalk between the most closest digital trace and RF trace is simulated and shows 
+                                that it is suppressed under -250dB.
+                            </p>
+                            <h3>HFSS Simulation</h3>
+                            <img src="./hfss_model.png" width="500px" alt="rfmc_hfss_model">
+                            <p class="bullet">
+                                To clarify coplanar waveguide(CPW) to SMA connector transition, HFSS simulation is conducted.
+                                6 different models are simulated, where the SMT connector, through hole connector without pad, and
+                                through hole connector with pad with, or without adequate size of throughole are compared. 
+                            </p>
+                            <img src="./hfss_s_parameter.png" width="500px" alt="rfmc_hfss_s_parameter">
+                            <p class="bullet">
+                                The simulation results show that through hole size critically affects the S parameter, and SMT, through hole
+                                case does not show big difference at our target frequency.
+                            </p>
+                        <h3>EMC Consideration</h3>
+                            <img src="./hfss_emc_model.png" width="300px" alt="rfmc_hfss_emc_model">
+                            <p class="bullet">
+                                To isolate switching noise from power supply, power circuit is implemented on the islanded region.
+                                To verify the isolation, HFSS simulation is conducted.
+                            </p>
+                            <img src="./hfss_isolation.png" width="500px" alt="rfmc_hfss_isolation">
+                            <p class="bullet">
+                                Simulation results show that island structure is effective to isolate the noise. In addition to switching noise
+                                suppression, to suppress unwanted EMI to RF signal, RF signals are shielded with ground plane. When the RF signals
+                                need to be connected to exposed components, shield can is placed to protect the RF signal.
+                            </p>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jeonghyun Park</p>
+        </div>
+    </footer>
+
+    <!-- Link the external JavaScript file -->
+    <script src="../script.js"></script>
+</body>
+</html>

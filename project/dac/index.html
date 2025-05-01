@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeonghyun Park - Profile</title>
+    <link rel="stylesheet" href="./project.css">
+</head>
+<body>
+    <!-- Fixed navigation bar -->
+    <nav class="fixed-nav">
+        <div class="nav-left">
+            <a href="https://www.linkedin.com/in/jeonghyun-park-a597b3268/" class="button">Linkedin</a>
+        </div>
+        <div class="nav-right">
+            <a href="../../index.html" class="button">Profile</a>
+            <a href="../../resume/index.html" class="button">Resume</a>
+            <!-- 이 부분이 핵심: Project 버튼에 드롭다운 -->
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">FPGA Project</a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a href="../../project/lolenc/index.html">RFSoC-based TIQC Control System</a>
+                    <a href="../../project/zcu104image/index.html">Image Transaction System</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">
+                    <div class="active">
+                        PCB Project
+                    </div>
+                </a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a href="../../project/rfmc/index.html">RF Frontend</a>
+                    <a class="active", href="../../project/dac/index.html">Low Noise DAC System</a>
+                    <a href="../../project/fmc2eem/index.html">High Speed FMC Router</a>
+                    <a href="../../project/eem2ttl/index.html">Bidirectional LVDS to TTL</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="projects">
+        <div class="container">
+            <section id="dac">
+                <div class="project">
+                    <h1> Low Noise DAC System </h1>
+                        <img src="./dac.png" width="400px" alt="DAC">
+                        <h2> Overview </h2>
+                        <img src="./CircuitDiagram.png" width="350px" alt="DAC">
+                        <p class="bullet">
+                            In TIQC, ions are shuttled to implement QCCD architecture.
+                            Shuttling is implemented by DAC, and to improve fidelity decrease from DAC,
+                            it should be designed to be low noise.
+                            To remove low, and high frequency noise, DAC system is fully shielded and 
+                            ground loop is removed.
+                        </p>
+                        <h2> Board Configuration </h2>
+                            <img width="350px" alt="image" src="./CircuitIllustration.png">
+                            <img width="450px" alt="image" src="./CircuitTable.png">
+                        <h2> Overall System </h2>
+                            <img src="./Ground.png" width="800px" alt="DAC">
+                            <p class="bullet">
+                                Remove ground loop, and shield DAC from high freuqnecy noise and ESD.
+                            </p>
+                            
+                            <img src="./dac_hybrid.png" width="200px" alt="DAC">
+                            <p class="bullet">
+                                Remove ground loop, and shield DAC from high freuqnecy noise and ESD.
+                            </p>
+                            
+                        <h2> Test Results </h2>
+                            <h3> Signal Integrity </h3>
+                                <img src="./dac_si.png" width="700px" alt="DAC">
+                                <p class="bullet">
+                                    Remove ground loop, and shield DAC from high freuqnecy noise and ESD.
+                                </p>
+                            <h3> Output Noise </h3>
+                                <img width="800" alt="image" src="./spectrum.png">
+                                <p class="bullet">
+                                    The blue trace represents the DAC's intrinsic noise floor, whereas the red trace shows the spectrum 
+                                    when the DAC is connected to the external digital board. The additional noise introduced by the digital 
+                                    board can be suppressed by inserting the isolation board.
+                                </p>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jeonghyun Park</p>
+        </div>
+    </footer>
+
+    <!-- Link the external JavaScript file -->
+    <script src="../script.js"></script>
+</body>
+</html>

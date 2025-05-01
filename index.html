@@ -15,7 +15,30 @@
         <div class="nav-right">
             <a href="./index.html" class="button">Profile</a>
             <a href="./resume/index.html" class="button">Resume</a>
-            <a href="./project/index.html" class="button">Project</a>
+            <!-- 이 부분이 핵심: Project 버튼에 드롭다운 -->
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">FPGA Project</a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a href="./project/lolenc/index.html">RFSoC-based TIQC Control System</a>
+                    <a href="./project/zcu104image/index.html">Image Transaction System</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">PCB Project</a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a href="./project/rfmc/index.html">RF Frontend</a>
+                    <a href="./project/dac/index.html">Low Noise DAC System</a>
+                    <a href="./project/fmc2eem/index.html">High Speed FMC Router</a>
+                    <a href="./project/eem2ttl/index.html">Bidirectional LVDS to TTL</a>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -53,7 +76,7 @@
                 <div class="content">
                     <div class="text">
                         <h3>
-                            <a href="./project/index.html#lolenc">RFSoC-based Trapped-Ion Qauntum Computer Control System</a>
+                            <a href="./project/lolenc/index.html">RFSoC-based Trapped-Ion Qauntum Computer Control System</a>
                         </h3>
                         
                         <div class="slider-container">
@@ -102,7 +125,7 @@
                 <div class="content">
                     <div class="text">
                         <h3>
-                            <a href="./project/index.html#ImageProcessingFPGA">SLM Control, and Frame Grabber System</a>
+                            <a href="./project/zcu104image/index.html">SLM Control, and Frame Grabber System</a>
                         </h3>
 
                         <div class="slider-container">
@@ -134,7 +157,7 @@
             <div class="project">
                 <div class="content">
                     <div class="text">
-                        <h3><a href="./project/index.html#rfmc">RF Frontend</a></h3>
+                        <h3><a href="./project/rfmc/index.html">RF Frontend</a></h3>
                         
                         <div class="slider-container">
                             <div class="slide-track">
@@ -171,7 +194,7 @@
                 <div class="content">
                     <div class="text">
                         <h3>
-                            <a href="./project/index.html#dac">Low Noise DAC System</a>
+                            <a href="./project/dac/index.html">Low Noise DAC System</a>
                         </h3>
 
                         <div class="slider-container">
@@ -204,7 +227,7 @@
                 <div class="content">
                     <div class="text">
                         <h3>
-                            <a href="./project/index.html#FMCtoEEM">High Speed FMC Router</a>
+                            <a href="./project/fmc2eem/index.html">High Speed FMC Router</a>
                         </h3>
 
                         <div class="slider-container">
@@ -234,7 +257,7 @@
                 <div class="content">
                     <div class="text">
                         <h3>
-                            <a href="./project/index.html#EEMtoTTL">Bidirectional LVDS to TTL</a>
+                            <a href="./project/eem2ttl/index.html">Bidirectional LVDS to TTL</a>
                         </h3>
                         
                         <div class="slider-container">

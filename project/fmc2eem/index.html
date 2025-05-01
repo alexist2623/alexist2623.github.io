@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeonghyun Park - Profile</title>
+    <link rel="stylesheet" href="./project.css">
+</head>
+<body>
+    <!-- Fixed navigation bar -->
+    <nav class="fixed-nav">
+        <div class="nav-left">
+            <a href="https://www.linkedin.com/in/jeonghyun-park-a597b3268/" class="button">Linkedin</a>
+        </div>
+        <div class="nav-right">
+            <a href="../../index.html" class="button">Profile</a>
+            <a href="../../resume/index.html" class="button">Resume</a>
+            <!-- 이 부분이 핵심: Project 버튼에 드롭다운 -->
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">FPGA Project</a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a href="../../project/lolenc/index.html">RFSoC-based TIQC Control System</a>
+                    <a href="../../project/zcu104image/index.html">Image Transaction System</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">
+                    <div class="active">
+                        PCB Project
+                    </div>
+                </a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a href="../../project/rfmc/index.html">RF Frontend</a>
+                    <a href="../../project/dac/index.html">Low Noise DAC System</a>
+                    <a class="active", href="../../project/fmc2eem/index.html">High Speed FMC Router</a>
+                    <a href="../../project/eem2ttl/index.html">Bidirectional LVDS to TTL</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="projects">
+        <div class="container">
+            <section id="FMCtoEEM">
+                <div class="project">
+                    <h2>High Speed FMC Router</h2>
+                    <img src="./FMC2EEM.png" width="500px" alt="Vivado Project Manager Image">
+                    <p class="bullet">
+                        Daughter board which converts FMC(VITA57.1/4) to EEM. 
+                        The board includes a feature to short the TDI and TDO signals, allowing the FPGA's 
+                        JTAG chain to remain intact and function properly even when the FPGA is powered on 
+                        after installation. It is designed to connect to other boards via the EEM interface 
+                        used in ARTIQ.
+                    </p>
+                    <img src="./FMC2EEM_Trace.png" width="500px" alt="FMC2EEM_Trace Image">
+                    <p class="bullet">
+                        The differential signals are routed with a 100-Ohm differential characteristic 
+                        impedance and are placed between ground layers to minimize external noise interference.
+                         All signals have a mismatch of less than 3mm, and the phase delay of the differential 
+                         signals is also matched.
+                    </p>
+                    <img src="./FMC2EEM_EyeDiagram.png" width="500px" alt="FMC2EEM FMC2EEM_EyeDiagram Image">
+                    <p class="bullet">
+                        The eye diagram analysis using ANSYS SIwave confirmed that the system operates without 
+                        issues at 1 Gbps.
+                    </p>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jeonghyun Park</p>
+        </div>
+    </footer>
+
+    <!-- Link the external JavaScript file -->
+    <script src="../script.js"></script>
+</body>
+</html>

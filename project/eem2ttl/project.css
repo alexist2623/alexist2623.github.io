@@ -1,0 +1,295 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #ffffff;
+    color: #000000;
+    padding-top: 60px; /* Adjust based on nav height */
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px; 
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+header {
+    background: #ffffff;
+    color: #000000;
+    padding: 20px 0;
+    text-align: left;
+    max-width: 1200px; /* 최대 너비 */
+    margin: 0 auto;
+}
+
+header h1 {
+    margin-bottom: 10px;
+    font-size: 2.5rem;
+}
+
+.profile {
+    background: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1000px; 
+    margin: 0 auto;
+    box-sizing: border-box; 
+}
+
+.profile-image {
+    margin-left: 10px;
+}
+
+.profile-image img {
+    flex: 0 0 250px;
+    width: 250px; /* Adjust the width of the image */
+    height: auto;
+}
+
+.profile .bio {
+    flex: 1;
+    padding-right: 20px;
+    box-sizing: border-box; /* 박스 모델을 크기에 맞게 조정 */
+}
+
+.research-interests {
+    background: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    max-width: 1200px; 
+    margin: 0 auto;
+}
+
+.research-interests h2 {
+    margin-bottom: 10px;
+}
+
+/*===================================================================================================
+ * Project styles
+ ====================================================================================================*/
+.projects {
+    background: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    max-width: 1200px; 
+    margin: 0 auto;
+}
+
+.projects h1 {
+    font-size: 2.5rem;
+}
+
+.projects h2 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+.project h2 a {
+    color: #000000;
+    text-decoration: none;
+    margin-left : 10px;
+}
+
+.project h2 a:hover {
+    text-decoration: none;
+    color: #5F5F5F;
+}
+
+.project h2 a:visited {
+    color: #000000;
+}
+
+.project h2 a:focus {
+    outline: none;
+}
+
+.project h2 a:active {
+    color: #e63946;
+}
+
+.project p{
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-left : 15px;
+    color : #000000;
+}
+
+.project .bullet::before {
+    content: "• ";
+    font-size: 1.2em;
+    color: black;
+}
+
+.project img {
+    display: block;
+    height: auto;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project .image-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+/*===================================================================================================
+ * Education styles
+ ====================================================================================================*/
+
+ /*===================================================================================================
+ * Work Experience styles
+ ====================================================================================================*/
+
+ /*===================================================================================================
+ * Scholarship styles
+ ====================================================================================================*/
+
+ul {
+    list-style: none;
+}
+
+ul li {
+    padding: 10px 0;
+}
+
+/*===================================================================================================
+ * Button styles
+ ====================================================================================================*/
+
+.button {
+    background-color: #ffffff; 
+    color: #000000;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.button:hover {
+    background-color: #ffffff;
+}
+
+/* Fixed navigation bar styles */
+.fixed-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    z-index: 1000; /* Ensures the nav stays on top */
+    border-bottom: 2px solid #ccc; /* Add a bottom border */
+}
+
+.fixed-nav .nav-left, .fixed-nav .nav-right {
+    display: flex;
+}
+
+.fixed-nav .button {
+    background-color: #ffffff; /* Button background */
+    color: #000000; /* Button text color */
+    padding: 10px 20px; /* Padding inside buttons */
+    text-decoration: none; /* Remove underline from links */
+    border-radius: 5px; /* Rounded corners */
+    margin: 0 10px; /* Space between buttons */
+}
+
+.fixed-nav .button:hover {
+    color : #5F5F5F;
+    background-color: #ffffff; /* Change color on hover */
+}
+
+.fixed-nav .button.active {
+    color: #e63946; /* Text color for active page (e.g., red) */
+}
+
+
+
+/* (1) 드롭다운 부모 컨테이너 */
+.dropdown {
+    position: relative;   
+    display: inline-block;  /* 인라인 블록(버튼 옆에 맞춰 배치) */
+    top: 0;
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1000; /* Ensures the nav stays on top */
+    white-space: nowrap;    /* 한 줄만 사용 */
+}
+
+.dropdown .button .active{
+    color: #e63946; /* Text color for active page (e.g., red) */
+}
+
+/* (2) 실제 드롭다운 목록 */
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;               /* ← 부모의 오른쪽에 붙임 */
+    left: auto;             /* 기존 left 값 무효화 */
+    min-width: 160px;
+    background: #f9f9f9;
+    box-shadow: 0 8px 16px rgba(0,0,0,.2);
+    z-index: 999;
+
+    /* 기본 숨김 */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity .25s ease, transform .25s ease;
+    
+    white-space: nowrap;    /* 한 줄만 사용 */
+}
+
+/* (3) 드롭다운 트리거(hover·포커스) */
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);        /* 아래로 “촤라락” */
+}
+
+/* (4) 내부 링크 스타일 */
+.dropdown-content a {
+    display: block;
+    padding: 12px 16px;
+    color: #000;
+    text-decoration: none;
+
+    /* 너무 길면 말줄임 처리 */
+    overflow: hidden;
+    text-overflow: ellipsis; /* … 표시 */
+}
+.dropdown-content a:hover {
+    background: #eee;
+}
+
+.fixed-nav .dropdown-content a.active {
+    color: #e63946; /* Text color for active page (e.g., red) */
+}

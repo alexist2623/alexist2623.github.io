@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeonghyun Park - Profile</title>
+    <link rel="stylesheet" href="./project.css">
+</head>
+<body>
+    <!-- Fixed navigation bar -->
+    <nav class="fixed-nav">
+        <div class="nav-left">
+            <a href="https://www.linkedin.com/in/jeonghyun-park-a597b3268/" class="button">Linkedin</a>
+        </div>
+        <div class="nav-right">
+            <a href="../../index.html" class="button">Profile</a>
+            <a href="../../resume/index.html" class="button">Resume</a>
+            <!-- 이 부분이 핵심: Project 버튼에 드롭다운 -->
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">FPGA Project</a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a href="../../project/lolenc/index.html">RFSoC-based TIQC Control System</a>
+                    <a href="../../project/zcu104image/index.html">Image Transaction System</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">
+                    <div class="active">
+                        PCB Project
+                    </div>
+                </a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a href="../../project/rfmc/index.html">RF Frontend PCB</a>
+                    <a href="../../project/dac/index.html">Low Noise DAC System</a>
+                    <a href="../../project/fmc2eem/index.html">High Speed FMC Router</a>
+                    <a class="active", href="../../project/eem2ttl/index.html">Bidirectional LVDS to TTL</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="projects">
+        <div class="container">
+            <section id="EEMtoTTL">
+                <div class="project">
+                    <h1>Bidirectional LVDS to TTL</h1>
+                        <img src="./EEM2TTL.png" width="400px" alt="Vivado Project Manager Image">
+                    <h2>Overview</h2>
+                        <img src="./CircuitDiagram.png" width="400px" alt="EEM2TTL RealSystem Image">
+                        <p class="bullet">
+                            The daughter board converts LVTTL to LVDS signals, 
+                            with configurable signal direction and 50-Ohm termination using jumpers. 
+                            Power can be supplied either through the EEM connector or an external power source. 
+                            A 12V to 3.3V DC-DC converter circuit provides the 3.3V power supply. 
+                            A buffer is used to drive a 50-Ohm impedance, ensuring the output voltage exceeds 2.0V, which meets the VIH requirements for LVTTL logic levels.
+                            The designed PCB serves as a Lolenc TTL driver, capable of controlling electronic devices with a timing resolution of 8 ns.
+                        </p>
+                        <h2>Board Configuration</h2>
+                            <img width="400" alt="image" src="./CircuitIllustration.png">
+                            <img width="500" alt="image" src="./CircuitTable.png">
+                        <h2> Jumper Configuration </h2>
+                        <h3> 1:Power Source Selection </h3>
+                            <p class="bullet">
+                                When the power source selection jumper is connected to the `INT` pin, the 12V power is supplied from the EEM interface.
+                                Conversely, if connected to the `EXT` pin, the 12V power is supplied from an external power source pin.
+                            </p>
+                        <h3> 3:Transciever Option Selection </h3>
+                            <p class="bullet">
+                                Each transceiver has four I/Os, and the direction of each I/O can be selected individually.
+                                Each I/O option is configured with a dedicated jumper, marked with an index number on the board.
+                                The upper jumper, labeled `I` and `O`, controls the transceiver's direction. When connected to `I`,
+                                it receives signals from TTL to EEM, and when set to `O`, it transmits signals from EEM to TTL. 
+                                The lower jumper selects the FSEN option for M-LVDS, which stabilizes output even when the input LVDS 
+                                signal is close to the threshold level and oscillating slightly.
+                            </p>
+                        <h3> 4:Buffer Option Selection </h3>
+                            <p class="bullet">
+                                A buffer chip is positioned directly behind the BNC port to increase output signal current. 
+                                The direction of each signal can be selected by adjusting jumpers. Connecting the jumper to 
+                                `I` routes the input signal from the BNC to the transceiver, while connecting it to `O` sends 
+                                the signal from the transceiver to the BNC port. The `OPEN` and `TERM` jumper is used to control 
+                                the BNC’s 50-ohm termination; connecting it to `OPEN` leaves the BNC open, while connecting it to 
+                                `TERM` provides a 50-ohm termination on the board. This setup helps reduce signal reflection when 
+                                receiving long-distance input signals.
+                            </p>
+                        <h3> 5:Direction Short Option Selection </h3>
+                            <p class="bullet">
+                                The transceiver and buffer directions must be matched.
+                                Each direction can be selected individually on the board, mainly for debugging purposes,
+                                but this feature is typically not used. Connecting the jumper to `DIR SHORT` synchronizes
+                                the transceiver and buffer directions. When using this setting, never connect both the transceiver
+                                and buffer direction jumpers simultaneously, as this could short 3.3V and 0V. It is recommended
+                                to leave the I/O direction jumper on the buffer open and control the direction using only the
+                                transceiver direction jumper.
+                            </p>
+                        <h3> 6:On/Off Switch </h3>
+                            <p class="bullet">
+                                When jumper is connected to `ON`, board is turned on, and vice versa.
+                            </p>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jeonghyun Park</p>
+        </div>
+    </footer>
+
+    <!-- Link the external JavaScript file -->
+    <script src="../script.js"></script>
+</body>
+</html>

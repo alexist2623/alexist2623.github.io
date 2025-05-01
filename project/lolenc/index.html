@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeonghyun Park - Profile</title>
+    <link rel="stylesheet" href="./project.css">
+</head>
+<body>
+    <!-- Fixed navigation bar -->
+    <nav class="fixed-nav">
+        <div class="nav-left">
+            <a href="https://www.linkedin.com/in/jeonghyun-park-a597b3268/" class="button">Linkedin</a>
+        </div>
+        <div class="nav-right">
+            <a href="../../index.html" class="button">Profile</a>
+            <a href="../../resume/index.html" class="button">Resume</a>
+            <!-- 이 부분이 핵심: Project 버튼에 드롭다운 -->
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">
+                    <div class="active">
+                        FPGA Project
+                    </div>
+                </a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a class="active", href="../../project/lolenc/index.html">RFSoC-based TIQC Control System</a>
+                    <a href="../../project/zcu104image/index.html">Image Transaction System</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">PCB Project</a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a href="../../project/rfmc/index.html">RF Frontend</a>
+                    <a href="../../project/dac/index.html">Low Noise DAC System</a>
+                    <a href="../../project/fmc2eem/index.html">High Speed FMC Router</a>
+                    <a href="../../project/eem2ttl/index.html">Bidirectional LVDS to TTL</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="projects">
+        <div class="container">
+            <section id="lolenc">
+                <div class="project">
+                    <h2>RFSoC-based TIQC Control System</h2>
+                    <img src="./FullDiagram2.png" width="800px" alt="LOLENC Block Diagram Image">
+                    <p class="bullet">
+                        True-arb waveform generation capable fully integrated TIQC control SoC. 
+                        It has 3 cores: Network, Error, and Experiment Processor respectively.
+                        All cores are running in baremetal to remove unpredictable behavior of OS.
+                        Network Processor manages commands from the host server where TCP server is running with LWIP.
+                        It makes interrupt to Experiment Processor to load binary code which is transmitted from the host server or
+                        forcibly stop running program.
+                        Error Processor monitors all modules in realtime, and record error signals, or override the signal for each module.
+                    </p>
+
+                    <h3>AWG</h3>
+                        <div class="image-container">
+                            <img src="./AWG_Structure.png" width="400px" alt="LOLENC AWG_Structure">
+                            <img src="./AWG_Memory.png" width="300px" alt="LOLENC AWG_Memory">
+                        </div>
+                        <p class="bullet">
+                            Typical AWG device lacks capability to generate arbitrary waveform for TIQC, since these
+                            utilizes only BRAM. To overcome this limitation, AWG utilizing DRAM is implemented. 
+                            To prevent unpredictable latency due to DRAM refresh, waveform data is aligned to memory
+                            row size, and data transaction is scheduled equally.
+                        </p>
+                        <img src="./DRAM_TOTAL.png" width="400px" alt="LOLENC DRAM_TOTAL">
+                        <p class="bullet">
+                            AWG latency is calculated theoretically, and it is compared with the measured latency.
+                            900 ns WCET latency is measured with 1 channel, and 2.16 us is measured with 8 channels.
+                        </p>
+
+                    <h3>Host Server</h3>
+                        <img src="./ProgrammingProcedure.png" width="400px" alt="LOLENC Block Diagram Image">
+                        <p class="bullet">
+                            User select CPP file through IQUIP GUI, and make schedule to run it on the master server. 
+                            Then, master find highest priority of schedule, and compile the CPP width GNU compiler.
+                            Linker script which is written to run on ELF Runner links all user CPP object file and bsp object file.
+                            Then, master send ELF file to ELF Runner through TCP Server.
+                        </p>
+                    
+                    <h3>Automatic Vivado Project Generation</h3>
+                        <div class="image-container">
+                            <img src="../vivado_project_manager/VivadoProjectManager.png" width="600px" alt="Vivado Project Manager Image">
+                            <img src="../vivado_project_manager/RealSystem.png" width="100px" alt="System made by Vivado Project">
+                        </div>
+                        <p class="bullet">
+                            Generate custom IP and connect block diagram automatically based on json meta file
+                            Lolenc block diagram is generated by Vivado Project Manager, which includes almost 45 custom IPs.
+                        </p>
+                    
+                    <h3>Ion Trap Two Qubit Gate Pulse Shaping Optimization</h3>
+                        <img src="../pulse_shaping/trajectory.png" width="400px" alt="PulseShaping">
+                        <p class="bullet">
+                            Pulse shaping optimization through ADAM algorithm and analysis between experiment data and calculated data
+                        </p>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jeonghyun Park</p>
+        </div>
+    </footer>
+
+    <!-- Link the external JavaScript file -->
+    <script src="../script.js"></script>
+</body>
+</html>

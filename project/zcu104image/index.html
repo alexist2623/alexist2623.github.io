@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeonghyun Park - Profile</title>
+    <link rel="stylesheet" href="./project.css">
+</head>
+<body>
+    <!-- Fixed navigation bar -->
+    <nav class="fixed-nav">
+        <div class="nav-left">
+            <a href="https://www.linkedin.com/in/jeonghyun-park-a597b3268/" class="button">Linkedin</a>
+        </div>
+        <div class="nav-right">
+            <a href="../../index.html" class="button">Profile</a>
+            <a href="../../resume/index.html" class="button">Resume</a>
+            <!-- 이 부분이 핵심: Project 버튼에 드롭다운 -->
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">
+                    <div class="active">
+                        FPGA Project
+                    </div>
+                </a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a href="../../project/lolenc/index.html">RFSoC-based TIQC Control System</a>
+                    <a class="active", href="../../project/zcu104image/index.html">Image Transaction System</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <!-- 실제 'Project' 버튼 -->
+                <a class="button">PCB Project</a>
+                
+                <!-- 하위에 표시할 항목들 -->
+                <div class="dropdown-content">
+                    <a href="../../project/rfmc/index.html">RF Frontend</a>
+                    <a href="../../project/dac/index.html">Low Noise DAC System</a>
+                    <a href="../../project/fmc2eem/index.html">High Speed FMC Router</a>
+                    <a href="../../project/eem2ttl/index.html">Bidirectional LVDS to TTL</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="projects">
+        <div class="container">
+            <section id="ImageProcessingFPGA">
+                <div class="project">
+                    <h2>DVI Display & Cameralink Frame Grabber</h2>
+                    <img src="./system.png" width="500px" alt="Vivado Project Manager Image">
+                    <p class="bullet">
+                        Image display system with DVI/HDMI for SLM.
+                    </p>
+                    <div class="image-container">
+                        <img src="./ZCU104Display.png" width="400px" alt="Vivado Project Manager Image">
+                        <img src="./ZCU104Interrupt.png" width="400px" alt="Vivado Project Manager Image">
+                    </div>
+                    <p class="bullet">
+                        ZCU104 Display System
+                        ZCU104 Interrupt System
+                    </p>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jeonghyun Park</p>
+        </div>
+    </footer>
+
+    <!-- Link the external JavaScript file -->
+    <script src="../script.js"></script>
+</body>
+</html>
