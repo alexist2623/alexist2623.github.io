@@ -15,16 +15,13 @@
         <div class="nav-right">
             <a href="../../index.html" class="button">Profile</a>
             <a href="../../resume/index.html" class="button">Resume</a>
-            <!-- 이 부분이 핵심: Project 버튼에 드롭다운 -->
             <div class="dropdown">
-                <!-- 실제 'Project' 버튼 -->
                 <a class="button">
                     <div class="active">
                         FPGA Project
                     </div>
                 </a>
                 
-                <!-- 하위에 표시할 항목들 -->
                 <div class="dropdown-content">
                     <a href="../../project/lolenc/index.html">RFSoC-based TIQC Control System</a>
                     <a class="active", href="../../project/zcu104image/index.html">Image Transaction System</a>
@@ -32,10 +29,8 @@
             </div>
 
             <div class="dropdown">
-                <!-- 실제 'Project' 버튼 -->
                 <a class="button">PCB Project</a>
                 
-                <!-- 하위에 표시할 항목들 -->
                 <div class="dropdown-content">
                     <a href="../../project/rfmc/index.html">RF Frontend</a>
                     <a href="../../project/dac/index.html">Low Noise DAC System</a>
@@ -50,19 +45,31 @@
         <div class="container">
             <section id="ImageProcessingFPGA">
                 <div class="project">
-                    <h2>DVI Display & Cameralink Frame Grabber</h2>
-                    <img src="./system.png" width="500px" alt="Vivado Project Manager Image">
-                    <p class="bullet">
-                        Image display system with DVI/HDMI for SLM.
-                    </p>
-                    <div class="image-container">
-                        <img src="./ZCU104Display.png" width="400px" alt="Vivado Project Manager Image">
-                        <img src="./ZCU104Interrupt.png" width="400px" alt="Vivado Project Manager Image">
-                    </div>
-                    <p class="bullet">
-                        ZCU104 Display System
-                        ZCU104 Interrupt System
-                    </p>
+                    <h1>Image Transaction System</h1>
+                    
+                        <h2>DVI Display</h2>
+                            <img src="./system.png" width="600px" alt="Vivado Project Manager Image">
+                            <p class="bullet">
+                                Image display system with DVI/HDMI interface.
+                                Image display is controlled through double buffer scheme as shown in Image Controller module.
+                                When external camera exposure is ended, Image Controller module makes IRQ to 
+                                processor and new image is loaded to Image Controller.
+                                In the same time, the back buffer discharges a new image to DVI interface, and make
+                                external camera exposure.
+                            </p>
+                            <div class="image-container">
+                                <img src="./ZCU104Display.png" width="400px" alt="Vivado Project Manager Image">
+                                <img src="./ZCU104Interrupt.png" width="400px" alt="Vivado Project Manager Image">
+                            </div>
+                            <p class="bullet">
+                                Left figure shows how the display is composed, and tight figure shwos interrupt routine and
+                                overall module structure.
+                                As shown in left figure, PC sends command to ZCU104 through TCP, and baremetal LWIP running
+                                on the ZCU104 parse the command, and do work.
+                                Image data is saved in SD Card and loaded to DDR4 memory.
+                                Image display system displays 100x100 MNIST image, and other part of the display is zero padded.
+                            </p>
+                        <h2>Cameralink Frame Grabber</h2>
                 </div>
             </section>
         </div>

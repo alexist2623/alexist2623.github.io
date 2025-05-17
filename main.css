@@ -164,6 +164,82 @@ header h3 a:focus {
     color: black;
 }
 
+/*===================================================================================================
+ * Publications styles
+ ====================================================================================================*/
+ .Publications {
+    background: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    max-width: 1200px; 
+    margin: 0 auto;
+}
+
+.Publications h2 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.Publications.content {
+    justify-content: space-between;
+    padding-left: 5px !important;
+}
+
+.Publications.text {
+    flex: 6; 
+    margin-right: 0px !important;
+}
+
+.Publications.bullet::before {
+    content: "• ";
+    font-size: 1.2em;
+    color: black;
+}
+
+
+.ref-list{
+    list-style:none;          /* 기본 숫자 숨김 */
+    counter-reset:refs;       /* 카운터 초기화 */
+    margin:0;
+    padding:0;
+}
+
+.ref-list li{
+    counter-increment:refs;   /* 항목마다 +1 */
+    margin:0 0 8px;
+    padding-left:2.6em;       /* 번호 폭 */
+    text-indent:-1.6em;       /* hanging indent */
+    line-height:1.45;
+}
+
+.ref-list li::before{
+    content:"[" counter(refs) "] ";
+    font-weight:bold;
+}
+
+.ref-list li a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.ref-list li:hover {
+    text-decoration: none;
+    color: #5F5F5F !important;
+}
+
+.ref-list li a:hover {
+    text-decoration: none;
+    color: #5F5F5F !important;
+}
+
+.ref-list li:visited {
+    color: #000000;
+}
+
+.ref-list li:focus {
+    outline: none;
+}
+
 footer {
     background: #333;
     color: #fff;

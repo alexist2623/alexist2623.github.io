@@ -68,28 +68,42 @@
                     <h2> Design Consideration </h2>
                         <h3>PI pad</h3>
                             <p class="bullet">
-                                PI pad is placed in front of balun to suppress reflection. It does not affect impedance of circuit, but only attenuate RF signal.
+                                PI pad is placed in front of balun to suppress reflection.
+                                It does not affect impedance of circuit, but only attenuate RF signal.
                             </p>
                         <h3>Balun</h3>
                             <p class="bullet">
-                                The balun converts the differential RF signal to a single-ended signal. Because its passband starts above DC, only the AC component is transmitted through the balun.
+                                The balun converts the differential RF signal to a single-ended signal.
+                                Because its passband starts above DC, only the AC component is transmitted through the balun.
                             </p>
                         
                         <h3>Stitching via/trace shielding</h3>
                             <img width="500" alt="image" src="./stitch_via.png">
                             <p class="bullet">
-                                Stitching vias help shield the signal trace from external noise. A common guideline is to space stitching vias no more than one-tenth of the wavelength at the highest target frequency; placing them even closer poses no problem and can further enhance shielding.
+                                Stitching vias help shield the signal trace from external noise.
+                                A common guideline is to space stitching vias no more than one-tenth of the wavelength 
+                                at the highest target frequency; placing them even closer poses no problem and can further 
+                                enhance shielding.
                             </p>
                         
                             <img width="500" alt="image" src="./trace.png">
                             <p class="bullet">
-                                The RF trace is normally routed as a strip-line between two ground planes for noise immunity. Where the trace must surface to the top or bottom layer—to reach a component such as a balun or filter—it is enclosed under an EMC shield which is mounted on the top layer, maintaining isolation at that transition.
+                                The RF trace is normally routed as a strip-line between two ground planes for noise immunity.
+                                Where the trace must surface to the top or bottom layer—to reach a component such as a balun 
+                                or filter—it is enclosed under an EMC shield which is mounted on the top layer, maintaining 
+                                isolation at that transition.
                             </p>
                         
                         <h3>Phase match</h3>
                             <img width="500" alt="image" src="./phase_match.png">
                             <p class="bullet">
-                                When a differential pair turns a corner, the outer trace travels a slightly longer path than the inner trace. This skew introduces phase mismatch, converting some of the differential signal to common-mode noise. The imbalance can be mitigated by enforcing phase (length) matching at every bend—typically by inserting small rounded “bulges,” i.e., length-compensation bumps, in the shorter inner trace—so that both conductors remain electrically equal in length.
+                                When a differential pair turns a corner, the outer trace travels a slightly longer path than 
+                                the inner trace. 
+                                This skew introduces phase mismatch, converting some of the differential 
+                                signal to common-mode noise. 
+                                The imbalance can be mitigated by enforcing phase (length) matching at every bend—typically 
+                                by inserting small rounded “bulges,” i.e., length-compensation 
+                                bumps, in the shorter inner trace—so that both conductors remain electrically equal in length.
                             </p>
                             
                         <h3>Length match</h3>
@@ -100,19 +114,31 @@
                         <h3>Component hole</h3>
                             <img width="500" alt="image" src="./hole_match.png">
                             <p class="bullet">
-                                A typical SMT component pad presents a large copper area, which significantly increases parasitic inductance. This unwanted inductance can be mitigated by back-drilling a hole beneath the top or bottom plane where component is soldered.
+                                A typical SMT component pad presents a large copper area, which significantly increases parasitic 
+                                inductance. 
+                                This unwanted inductance can be mitigated by back-drilling a hole beneath the top or 
+                                bottom plane where component is soldered.
                             </p>
                         
                         <h3>Impedance at connector</h3>
                             <img width="500" alt="image" src="./impedance_at_hole.png">
                             <p class="bullet">
-                                A solder-less SMA connector offers the best impedance continuity because the signal path avoids any solder-induced discontinuity. However, it is expensive and its advantage is negligible outside the millimetre-wave band, so a plated through-hole (PTH) SMA is employed instead. As the signal transitions from the PCB trace to the PTH connector, it encounters an impedance mismatch. This mismatch is mitigated by drilling an oversized anti-pad (a “coax-sized” clearance) around the centre pin, ensuring that the transition maintains the target impedance and thereby minimises return loss (S11).
+                                A solder-less SMA connector offers the best impedance continuity because the signal path avoids 
+                                any solder-induced discontinuity. 
+                                However, it is expensive and its advantage is negligible outside the millimetre-wave band, so 
+                                a plated through-hole (PTH) SMA is employed instead. 
+                                As the signal transitions from the PCB trace to the PTH connector, it encounters an impedance mismatch. 
+                                This mismatch is mitigated by drilling an oversized anti-pad (a “coax-sized” clearance) around 
+                                the centre pin, ensuring that the transition maintains the target impedance and thereby minimises 
+                                return loss (S11).
                             </p>
                         
                         <h3>Analog/digital ground isolation</h3>
                             <img width="500" alt="image" src="./ground_isolation.png">
                             <p class="bullet">
-                                Routing digital and analog traces in separate PCB regions usually provides adequate ground isolation. To further reduce coupling, the ground planes are physically split, and the switching regulator is placed on an isolated “island” so that its switching noise remains confined.
+                                Routing digital and analog traces in separate PCB regions usually provides adequate ground isolation. 
+                                To further reduce coupling, the ground planes are physically split, and the switching regulator is 
+                                placed on an isolated “island” so that its switching noise remains confined.
                             </p>
 
                     <h2> Test Results </h2>
