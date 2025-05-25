@@ -61,26 +61,105 @@
                         forcibly stop running program.
                         Error Processor monitors all modules in realtime, and record error signals, or override the signal for each module.
                     </p>
-
-                    <h3>AWG</h3>
+                    
+                    <h3>Real-time Controller IP</h3>
                         <div class="image-container">
-                            <img src="./AWG_Structure.png" width="400px" alt="LOLENC AWG_Structure">
-                            <img src="./AWG_Memory.png" width="300px" alt="LOLENC AWG_Memory">
+                            <img src="./RTC.png" width="400px" alt="LOLENC Block Diagram Image">
+                            <img src="./AXI_ADDR.png" width="400px" alt="LOLENC Block Diagram Image">
                         </div>
                         <p class="bullet">
-                            Typical AWG device lacks capability to generate arbitrary waveform for TIQC, since these
-                            utilizes only BRAM. To overcome this limitation, AWG utilizing DRAM is implemented. 
-                            To prevent unpredictable latency due to DRAM refresh, waveform data is aligned to memory
-                            row size, and data transaction is scheduled equally.
+                            In our system all IPs are connected through AXI, and it recieves microcode, it fills
+                            push to the queue, and then when timestamp specified in microcode is reached, it pops
+                            the queue and execute the microcode.
+                            We defined these specific microcode as a event, and IP is designated as a real-time controller (RTC).
+                            In other words, all IPs are encapsulized by RTC, following above register map.
+                        </p>
+                    
+
+                    <h3>DRAM based Arbitrary Waveform Generator IP</h3>
+                        <img src="./AWG_Structure.png" width="800px" alt="LOLENC Block Diagram Image">
+                        <p class="bullet">
+                            Typical AWG device lacks capacity of memory to generate true-arb waveform for TIQC, since these
+                            utilizes only BRAM. 
+                            To overcome this limitation, our new AWG IP of RFSoC utilizes extermal DDR DRAM. 
+                            To avoid unpredictable latency due to periodic DRAM refresh, double buffering method is utilized,
+                            where our micro-architecture schedules waveform read, and output itself.
+                        </p>
+                        <img src="./AWG_Memory.png" width="500px" alt="LOLENC Block Diagram Image">
+                        <p>
+                            As well known, DRAM is composed several banks, which is composed of rows, which can be accessed
+                            without additional activation command after once activated, which is called row hit, and when new activation is
+                            triggered, it is called row miss.
+                            To remove row miss when one buffer size of waveform is read from DRAM, waveform data is aligned to memory row size, 
+                            and data transaction is scheduled equally.
                         </p>
                         <img src="./DRAM_TOTAL.png" width="400px" alt="LOLENC DRAM_TOTAL">
                         <p class="bullet">
-                            AWG latency is calculated theoretically, and it is compared with the measured latency.
+                            Optimal buffer size and its latency of AWG IP is calculated theoretically considering JEDEC standard, and it 
+                            is compared with the actually measured latency.
                             900 ns WCET latency is measured with 1 channel, and 2.16 us is measured with 8 channels.
                         </p>
+                    
+                    <h3>Direct Digital Synthesis IP</h3>
+                        <img src="./DDS.png" width="450px" alt="LOLENC Block Diagram Image">
+                        <p class="bullet">
+                            Some experiments require sustained waveform generation with fixed frequency, 
+                            so DDS IP is also implemented.
+                            To generate harmonic signals, with user set phase, amplitude, and frequency, parameters should
+                            pass phase accumulator, sin lookup table, and amplitude multiplier.
+                            To relieve timing constraint, it is implemented through 5-stage pipeline.
+                        </p>
+                        <img src="./MACPipeline.png" width="450px" alt="LOLENC Block Diagram Image">
+                        <p class="bullet">
+                            In addition, some quantum experiments require phase re-alignment in real-time,
+                            so it is necessary to calculate phase offset in real-time, which conducts 48 bit multiplication.
+                            To relieve timing constraint, it is implemented through Vedic algorihtm.
+                        </p>
+                    <h3>Interrupt based Flow Control</h3>
+                        <img src="./ProcessorQueue_processor_based.png" width="500px" alt="LOLENC Block Diagram Image">
+                        <p class="bullet">
+                            Events can be loaded from the processor and DMA method.
+                            Two cases should be handled differently to avoid stall due to queue full.
+                            Above figure shows the case of processor based microcode loading.
+                        </p>
+                        <img src="./InterruptHandling.png" width="700px" alt="LOLENC Block Diagram Image">
+                        <p class="bullet">
+                            To prevent queue full when loading microcode from processor, RTC trigger interrupt to processor,
+                            and processor logs it to its table.
+                            When new event is should be loaded to the RTC which triggered interrupt, processor write
+                            the event to memory rather than RTC.
+                            When RTC make interrupt to processor where RTC is almost empty, processor read the events from
+                            memory and write these to the RTC with ZDMA (ZynqDMA which is internally imbedded in PS).
+                        </p>
+
+                    <h3>Non-blocking Direct Memory Access (DMA Flow Control)</h3>
+                        <img src="./ProcessorQueue_dma_based.png" width="500px" alt="LOLENC Block Diagram Image">
+                        <p class="bullet">
+                            When loading a large amount of events, it is necessary to load these through DMA (e.g. shuttling in TIQC).
+                            However, requesting interrupt to the processor incurs large overhead, and lowers throughput significantly.
+                        </p>
+                        <img src="./DistributedQueueStall.png" width="350px" alt="LOLENC Block Diagram Image">
+                        <p class="bullet">
+                            However, when flow control is not applied to DMA, it can cause stall in the system as
+                            shown in the above figure.
+                        </p>
+                        <img src="./BlockQueueStall.png" width="500px" alt="LOLENC Block Diagram Image">
+                        <p class ="bullet">
+                            To overcome this limitation, while maintaining the high throughput, 
+                            we implemented non-blocking DMA method, where dedicated module sense the queue status
+                            and starts DMA transfer in block unit.
+                        </p>
+                        <img src="./QueueFailure.png" width="500px" alt="LOLENC Block Diagram Image">
+                        <p class = "bullet">
+                            To optimize the queue size, Monte Carlo simulation is performed.
+                            Moreover, to speed up the simulation with parallization, we implemented
+                            simulation with CUDA on GPU (RTX2070).
+                            Above figure shows that 2048 depth is optimal for our case.
+                        </p>
+                        <img src="./MIPS_Comparison_tot.png" width="700px" alt="LOLENC Block Diagram Image">
 
                     <h3>Host Server</h3>
-                        <img src="./ProgrammingProcedure.png" width="400px" alt="LOLENC Block Diagram Image">
+                        <img src="./ProgrammingProcedure.png" width="600px" alt="LOLENC Block Diagram Image">
                         <p class="bullet">
                             User select CPP file through IQUIP GUI, and make schedule to run it on the master server. 
                             Then, master find highest priority of schedule, and compile the CPP width GNU compiler.
