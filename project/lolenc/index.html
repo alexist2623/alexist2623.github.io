@@ -54,12 +54,13 @@
                     <img src="./FullDiagram2.png" width="800px" alt="LOLENC Block Diagram Image">
                     <p class="bullet">
                         True-arb waveform generation capable fully integrated TIQC control SoC. 
-                        It has 3 cores: Network, Error, and Experiment Processor respectively.
-                        All cores are running in baremetal to remove unpredictable behavior of OS.
-                        Network Processor manages commands from the host server where TCP server is running with LWIP.
-                        It makes interrupt to Experiment Processor to load binary code which is transmitted from the host server or
-                        forcibly stop running program.
-                        Error Processor monitors all modules in realtime, and record error signals, or override the signal for each module.
+                        It contains three processors: a Network Processor, an Monitor Processor, and an Execution Processor.
+                        All processors run in bare-metal mode to eliminate the unpredictable behavior of an operating system.
+                        The Network Processor handles commands from the host server, running a TCP server implemented with raw lwIP.
+                        It interrupts the Execution Processor to load binary code (ELF file) transmitted from the host or to forcibly 
+                        halt the program in execution.
+                        The Monitor Processor continuously monitors all modules in real time, records error signals, and can override
+                        signals for each module.
                     </p>
                     
                     <h3>Real-time Controller IP</h3>
@@ -68,103 +69,118 @@
                             <img src="./AXI_ADDR.png" width="400px" alt="LOLENC Block Diagram Image">
                         </div>
                         <p class="bullet">
-                            In our system all IPs are connected through AXI, and it recieves microcode, it fills
-                            push to the queue, and then when timestamp specified in microcode is reached, it pops
-                            the queue and execute the microcode.
-                            We defined these specific microcode as a event, and IP is designated as a real-time controller (RTC).
-                            In other words, all IPs are encapsulized by RTC, following above register map.
+                            In our system, all IPs are connected via AXI. 
+                            Each IP receives microcode, pushes it into a queue, and, when the timestamp specified in the microcode 
+                            is reached, pops the queue and executes the microcode.
+                            These specific microcode is defined as a event, and IP is designated as a real-time controller (RTC).
+                            In other words, every IP is encapsulated by an RTC that follows the register map above.
                         </p>
                     
 
                     <h3>DRAM based Arbitrary Waveform Generator IP</h3>
                         <img src="./AWG_Structure.png" width="800px" alt="LOLENC Block Diagram Image">
                         <p class="bullet">
-                            Typical AWG device lacks capacity of memory to generate true-arb waveform for TIQC, since these
-                            utilizes only BRAM. 
-                            To overcome this limitation, our new AWG IP of RFSoC utilizes extermal DDR DRAM. 
-                            To avoid unpredictable latency due to periodic DRAM refresh, double buffering method is utilized,
-                            where our micro-architecture schedules waveform read, and output itself.
+                            Typical AWG devices for quantum computer lack sufficient memory capacity to generate true-arbitrary
+                            waveforms for TIQC because they rely solely on on-chip BRAM.
+                            Our new AWG IP on an RFSoC overcomes this limitation by using external DDR SDRAM.
+                            To eliminate the unpredictable latency introduced by periodic DRAM refresh,
+                            we employ double-buffering, with a microarchitecture that schedules waveform reads
+                            and controls the output in real time.
                         </p>
                         <img src="./AWG_Memory.png" width="500px" alt="LOLENC Block Diagram Image">
                         <p>
-                            As well known, DRAM is composed several banks, which is composed of rows, which can be accessed
-                            without additional activation command after once activated, which is called row hit, and when new activation is
-                            triggered, it is called row miss.
-                            To remove row miss when one buffer size of waveform is read from DRAM, waveform data is aligned to memory row size, 
-                            and data transaction is scheduled equally.
+                            It is well known that DRAM is composed of several banks, each of which is made up of rows.
+                            Once a row has been activated, subsequent accesses to that row proceed without an additional 
+                            ACT command, which is known as a row hit.
+                            When a different row must be activated, the access incurs a row miss.
+                            To avoid row misses when reading a waveform buffer from DRAM, the waveform data is aligned to the
+                            memory-row size, and the data transfers are evenly scheduled.
                         </p>
                         <img src="./DRAM_TOTAL.png" width="400px" alt="LOLENC DRAM_TOTAL">
                         <p class="bullet">
-                            Optimal buffer size and its latency of AWG IP is calculated theoretically considering JEDEC standard, and it 
-                            is compared with the actually measured latency.
-                            900 ns WCET latency is measured with 1 channel, and 2.16 us is measured with 8 channels.
+                            The optimal buffer size and its corresponding latency for the AWG IP are calculated analytically,
+                            and the results are compared with the latency measured experimentally.
+                            A worst-case execution-time latency of 900 ns was observed with one channel,
+                            whereas 2.16 µs was recorded with eight channels.
                         </p>
                     
                     <h3>Direct Digital Synthesis IP</h3>
                         <img src="./DDS.png" width="450px" alt="LOLENC Block Diagram Image">
                         <p class="bullet">
-                            Some experiments require sustained waveform generation with fixed frequency, 
-                            so DDS IP is also implemented.
-                            To generate harmonic signals, with user set phase, amplitude, and frequency, parameters should
-                            pass phase accumulator, sin lookup table, and amplitude multiplier.
-                            To relieve timing constraint, it is implemented through 5-stage pipeline.
+                            Because some experiments require sustained waveform generation at a fixed frequency,
+                            we implemented a DDS IP core as well. To generate sinusoidal signals with user-set phase,
+                            amplitude, and frequency, the parameters pass through a phase accumulator, a sine-lookup table,
+                            and an amplitude multiplier. To meet timing constraints, the design is implemented as a
+                            five-stage pipeline.
                         </p>
                         <img src="./MACPipeline.png" width="450px" alt="LOLENC Block Diagram Image">
                         <p class="bullet">
-                            In addition, some quantum experiments require phase re-alignment in real-time,
-                            so it is necessary to calculate phase offset in real-time, which conducts 48 bit multiplication.
-                            To relieve timing constraint, it is implemented through Vedic algorihtm.
+                            Additionally, certain quantum experiments require real-time phase re-alignment,
+                            necessitating a real-time phase-offset calculation that involves a 48-bit multiplication.
+                            To meet timing constraints, the operation is implemented using a Vedic multiplication algorithm.
                         </p>
                     <h3>Interrupt based Flow Control</h3>
                         <img src="./ProcessorQueue_processor_based.png" width="500px" alt="LOLENC Block Diagram Image">
                         <p class="bullet">
-                            Events can be loaded from the processor and DMA method.
-                            Two cases should be handled differently to avoid stall due to queue full.
-                            Above figure shows the case of processor based microcode loading.
+                            Events can be loaded by the processor or via the DMA engine.
+                            The two cases must be handled differently to prevent stalls caused by queue saturation.
+                            The figure above illustrates processor-based event loading.
                         </p>
                         <img src="./InterruptHandling.png" width="700px" alt="LOLENC Block Diagram Image">
                         <p class="bullet">
-                            To prevent queue full when loading microcode from processor, RTC trigger interrupt to processor,
-                            and processor logs it to its table.
-                            When new event is should be loaded to the RTC which triggered interrupt, processor write
-                            the event to memory rather than RTC.
-                            When RTC make interrupt to processor where RTC is almost empty, processor read the events from
-                            memory and write these to the RTC with ZDMA (ZynqDMA which is internally imbedded in PS).
+                            To prevent queue saturation during processor-initiated event loading,
+                            the RTC triggers an interrupt to the processor when its queue is almost full,
+                            and the processor logs the request in an internal table.
+                            When a new event must be loaded into the RTC that issued the interrupt,
+                            the processor writes the event to memory in linked-list form rather than directly to the RTC.
+                            Later, when the RTC raises another interrupt indicating that its queue is nearly empty,
+                            the processor reads the pending events from memory and transfers them to the RTC via
+                            ZDMA, which is the Zynq DMA engine embedded in the PS.
+                            Note that events stored in memory are divided into blocks, and only one block is transferred
+                            from memory to the RTC at a time, so the queue does not become saturated.
                         </p>
 
                     <h3>Non-blocking Direct Memory Access (DMA Flow Control)</h3>
                         <img src="./ProcessorQueue_dma_based.png" width="500px" alt="LOLENC Block Diagram Image">
                         <p class="bullet">
-                            When loading a large amount of events, it is necessary to load these through DMA (e.g. shuttling in TIQC).
-                            However, requesting interrupt to the processor incurs large overhead, and lowers throughput significantly.
+                            When a large number of events must be loaded (e.g., ion shuttling in TIQC),
+                            it is necessary to utilize DMA (e.g. shuttling in TIQC).
+                            However, triggering an interrupt to the processor introduces substantial overhead
+                            and significantly reduces throughput.
                         </p>
-                        <img src="./DistributedQueueStall.png" width="350px" alt="LOLENC Block Diagram Image">
+                        <img src="./DistributedQueueStall.png" width="300px" alt="LOLENC Block Diagram Image">
                         <p class="bullet">
-                            However, when flow control is not applied to DMA, it can cause stall in the system as
-                            shown in the above figure.
+                            However, when flow control is not applied to the DMA engine, it can cause a stall
+                            in the system, as shown in the figure above.
                         </p>
-                        <img src="./BlockQueueStall.png" width="500px" alt="LOLENC Block Diagram Image">
+                        <img src="./BlockQueueStall.png" width="400px" alt="LOLENC Block Diagram Image">
                         <p class ="bullet">
-                            To overcome this limitation, while maintaining the high throughput, 
-                            we implemented non-blocking DMA method, where dedicated module sense the queue status
-                            and starts DMA transfer in block unit.
+                            To overcome this limitation while maintaining high throughput, we implemented
+                            a non-blocking DMA approach in which a dedicated RTC senses the queue status
+                            and initiates DMA transfers one block at a time.
                         </p>
-                        <img src="./QueueFailure.png" width="500px" alt="LOLENC Block Diagram Image">
+                        <img src="./QueueFailure.png" width="450px" alt="LOLENC Block Diagram Image">
                         <p class = "bullet">
-                            To optimize the queue size, Monte Carlo simulation is performed.
-                            Moreover, to speed up the simulation with parallization, we implemented
-                            simulation with CUDA on GPU (RTX2070).
-                            Above figure shows that 2048 depth is optimal for our case.
+                            To optimize the queue size, we performed a Monte Carlo simulation.
+                            Moreover, to accelerate the simulation through parallelization, we implemented
+                            it in CUDA on an RTX 2070 GPU.
+                            The figure above shows that a queue depth of 2048 is optimal for our case.
                         </p>
-                        <img src="./MIPS_Comparison_tot.png" width="700px" alt="LOLENC Block Diagram Image">
+                        <img src="./MIPS_Comparison_tot.png" width="500px" alt="LOLENC Block Diagram Image">
+                        <p class = "bullet">
+                            The figure above compares the million events per second (MEPS) achieved by the processor-based and DMA-based 
+                            event-loading methods.
+                            The DMA-based approach reaches 200 MEPS, which is equivalent to 3.2 GB/s (each event occupies 16 MB).
+                            It is ten times higher than the throughput of the processor-based method.
+                        </p>
 
                     <h3>Host Server</h3>
                         <img src="./ProgrammingProcedure.png" width="600px" alt="LOLENC Block Diagram Image">
                         <p class="bullet">
-                            User select CPP file through IQUIP GUI, and make schedule to run it on the master server. 
-                            Then, master find highest priority of schedule, and compile the CPP width GNU compiler.
-                            Linker script which is written to run on ELF Runner links all user CPP object file and bsp object file.
-                            Then, master send ELF file to ELF Runner through TCP Server.
+                            The user selects a C++ source file via the IQUIP GUI and schedules it to compile on the master server.
+                            The master server then finds the highest-priority job and compiles the C++ code with the GNU compiler.
+                            A linker script, written for the Execution Processor, links all user C++ object files and BSP object files.
+                            Finally, the master server sends the resulting ELF file to the Execution Processor via TCP.
                         </p>
                     
                     <h3>Automatic Vivado Project Generation</h3>
@@ -173,14 +189,15 @@
                             <img src="../vivado_project_manager/RealSystem.png" width="100px" alt="System made by Vivado Project">
                         </div>
                         <p class="bullet">
-                            Generate custom IP and connect block diagram automatically based on json meta file
-                            Lolenc block diagram is generated by Vivado Project Manager, which includes almost 45 custom IPs.
+                            A Python script generates TCL code and executes it in Vivado to create a custom IP core (the RTC in our case),
+                            connect it in the block diagram, and automatically assign AXI addresses based on a JSON metadata file.
+                            The block diagram shown above was generated by Vivado Project Manager and includes nearly 45 custom IP cores.
                         </p>
                     
                     <h3>Ion Trap Two Qubit Gate Pulse Shaping Optimization</h3>
                         <img src="../pulse_shaping/trajectory.png" width="400px" alt="PulseShaping">
                         <p class="bullet">
-                            Pulse shaping optimization through ADAM algorithm and analysis between experiment data and calculated data
+                            Pulse shaping optimization through ADAM algorithm and analysis between experiment data and calculated data.
                         </p>
                 </div>
             </section>
